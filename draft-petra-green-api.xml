@@ -187,8 +187,6 @@ please see http://xml.resource.org/authoring/README.html. -->
         <ul>
           <li>Watts per Gigabit: How many Watts are consumed per Gigabit of traffic traversing the
             path.</li>
-          <li>Carbon Intensity: How much carbon emissions are generated as a consequence of the
-            energy consumed.</li>
         </ul>
 
         <t>Some other parameters that could be considered as well as part of the energy information
@@ -196,6 +194,8 @@ please see http://xml.resource.org/authoring/README.html. -->
         <ul>
           <li>Renewable Percentage: How much of the energy consumed comes from renewable energy
             sources.</li>
+          <li>Carbon Intensity: How much carbon emissions are generated as a consequence of the
+              energy consumed.</li>
           <li>...</li>
         </ul>
 
@@ -238,7 +238,6 @@ module: ietf-petra
               +--:(success)
               |  +--ro success
               |     +--ro watts-per-gigabit?   decimal64
-              |     +--ro carbon-intensity?    uint32
               +--:(invalid-address)
                  +--ro invalid-address
 
@@ -312,8 +311,7 @@ module ietf-petra {
     {
       'output': {
         'success': {
-          'watts-per-gigabit': '191.855',
-          'carbon-intensity': '108'
+          'watts-per-gigabit': '191.855'
         }
       }
     }
@@ -336,12 +334,6 @@ module ietf-petra {
       units W/Gb;
       description
         "Watts consumed per Gigabit transmitted";
-    }
-    leaf carbon-intensity {
-      type uint32;
-      units gCO2e/kWh;
-      description
-        "Grams of CO2 per kWh";
     }
   }
 
