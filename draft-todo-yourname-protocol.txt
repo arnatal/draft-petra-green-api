@@ -2,7 +2,7 @@
 
 
 
-WG Working Group                                              Y. N. Here
+Network Working Group                                 A. Rodriguez-Natal
 Internet-Draft                                    Your Organization Here
 Intended status: Informational                            3 October 2025
 Expires: 6 April 2026
@@ -20,16 +20,12 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   https://arnatal.github.io/draft-petra-green-api/draft-todo-yourname-
+   protocol.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/arnatal/draft-petra-green-api.
 
 Status of This Memo
 
@@ -109,6 +105,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
+   Alberto Rodriguez-Natal
    Your Organization Here
-   Email: your.email@example.com
+   Email: natal@cisco.com
