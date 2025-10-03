@@ -93,23 +93,8 @@ please see http://xml.resource.org/authoring/README.html. -->
       </address>
     </author>
 
-    <author fullname="Alejandro Muniz" initials="A." surname="Muniz">
-      <organization>Telefonica</organization>
-      <address>
-        <postal>
-          <street></street>
-          <city>Madrid</city>
-          <region></region>
-          <code></code>
-          <country>Spain</country>
-        </postal>
-        <phone></phone>
-        <email>alejandro.muniz@telefonica.com</email>
-      </address>
-    </author>
-
     <author fullname="Marisol Palmero" initials="M." surname="Palmero">
-      <organization></organization>
+      <organization>Independent Consultant</organization>
       <address>
         <postal>
           <street></street>
@@ -120,21 +105,6 @@ please see http://xml.resource.org/authoring/README.html. -->
         </postal>
         <phone></phone>
         <email>marisol.ietf@gmail.com</email>
-      </address>
-    </author>
-
-    <author fullname="Fernando Munoz" initials="F." surname="Munoz">
-      <organization>Cisco</organization>
-      <address>
-        <postal>
-          <street></street>
-          <city>Madrid</city>
-          <region></region>
-          <code></code>
-          <country>Spain</country>
-        </postal>
-        <phone></phone>
-        <email>fmunozma@cisco.com</email>
       </address>
     </author>
 
@@ -150,6 +120,21 @@ please see http://xml.resource.org/authoring/README.html. -->
         </postal>
         <phone></phone>
         <email>jan.lindblad+ietf@for.eco</email>
+      </address>
+    </author>
+
+    <author fullname="Adrian Gallego Sanchez" initials="A." surname="Gallego Sanchez">
+      <organization>T-SYSTEMS</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Madrid </city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>ADRIAN.GALLEGO-SANCHEZ@t-systems.com</email>
       </address>
     </author>
 
@@ -576,7 +561,27 @@ and Capability  Efficiency   |  Metadata and other
       </t>
 
     </section>
+    <section numbered="false" title="Contributors" toc="default">
 
+      <t><figure>
+          <artwork><![CDATA[
+
+Fernando Munoz
+Cisco
+Madrid
+Spain
+
+Email: fmunozma@cisco.com
+
+
+Alejandro Muniz
+
+Madrid
+Spain
+
+          ]]></artwork>
+      </figure></t>
+    </section>
 
   </back>
 </rfc>
