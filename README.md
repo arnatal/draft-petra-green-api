@@ -1,13 +1,13 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# TODO - Your title
+# Path Energy Traffic Ratio API (PETRA)
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "Path Energy Traffic Ratio API (PETRA)".
 
-* [Editor's Copy](https://arnatal.github.io/draft-petra-green-api/#go.draft-todo-yourname-protocol.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-todo-yourname-protocol)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-todo-yourname-protocol)
-* [Compare Editor's Copy to Individual Draft](https://arnatal.github.io/draft-petra-green-api/#go.draft-todo-yourname-protocol.diff)
+* [Editor's Copy](https://arnatal.github.io/draft-petra-green-api/#go.draft-petra-green-api.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-petra-green-api)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-petra-green-api)
+* [Compare Editor's Copy to Individual Draft](https://arnatal.github.io/draft-petra-green-api/#go.draft-petra-green-api.diff)
 
 
 ## Contributing
