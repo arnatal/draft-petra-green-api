@@ -44,7 +44,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 <?rfc subcompact="no"?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-petra-green-api-01" ipr="trust200902"
+<rfc category="info" docName="draft-petra-green-api-latest" ipr="trust200902"
   submissionType="IETF">
   <!-- category values: std, bcp, info, exp, and historic
   ipr values: full3667, noModification3667, noDerivatives3667
@@ -296,7 +296,7 @@ module ietf-petra {
     This version of this YANG module is part of RFC XXXX
     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
     for full legal notices.
-      
+
     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
     'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
     'NOT RECOMMENDED', 'MAY', and 'OPTIONAL' in this document
@@ -306,7 +306,7 @@ module ietf-petra {
     ";
 
 /*
-    If you have an implementation of this YANG module, you could 
+    If you have an implementation of this YANG module, you could
     access it like something this over RESTCONF:
 
     $ curl --location --request POST \
@@ -321,7 +321,7 @@ module ietf-petra {
           }
         }'
 
-    And if all goes well, you might receive (besides all the 
+    And if all goes well, you might receive (besides all the
     HTTP headers) a reply body with something like this:
 
     {
@@ -364,19 +364,19 @@ module ietf-petra {
     description
       "PETRA API top level container.";
     action query {
-      description 
+      description
         "Query the network for energy consupmtion";
       input {
         leaf src-ip {
           type ietf-inet-types:ip-address;
           mandatory true;
-          description 
+          description
             "Source IP address";
         }
         leaf dst-ip {
           type ietf-inet-types:ip-address;
           mandatory true;
-          description 
+          description
             "Destination IP address";
         }
         leaf throughput {
@@ -399,7 +399,7 @@ module ietf-petra {
           }
           container invalid-address {
             description
-              "Invalid source/destination IP address supplied";  
+              "Invalid source/destination IP address supplied";
           }
         }
       }
@@ -423,7 +423,7 @@ module ietf-petra {
       <t>Kudos to Elis Lulja for his help with the OpenAPI specification in early versions of this
         draft. Thanks to Fernando Sanz Garcia and Lori Jakab for their help and support on this
         work. </t>
-        
+
         <t>The contribution of Telefonica to this document has been
    supported by the Smart Networks and Services Joint Undertaking (SNS
    JU) under the European Union's Horizon Europe research and innovation
@@ -504,7 +504,7 @@ module ietf-petra {
 
       <section anchor="sdwan" title="SD-WAN">
         <t>Software-Defined Wide-Area Networks (SD-WAN) have become a common way for enterprises to provide cost-effective connectivity across their different geographically distributed sites. Typically, SD-WAN deployments operate as an overlay network that is established on top of an existing underlay connectivity network. One aspect to consider is that in many SD-WAN production deployments the operator of the overlay network and the operator of the underlay network are different organizations.</t>
-        
+
         <t>This poses an additional challenge when trying to derive sustainability metrics. Even if the underlay network is instrumented to collect energy data, this data is opaque to the operator of the overlay network which has no access to underlay information. While operators of underlay networks offer certain general network metrics to overlay operators, no interface has been defined to allow the overlay operator to query the underlay network for energy information.</t>
 
         <t>In this context, the PETRA specification presented in this document enables the operator of the SD-WAN network to coordinate with the underlay operator to capture sustainability data. This in turns opens further use-cases, from observability and reporting to potentially overlay policies based on underlay energy data, further enabling an overall more sustainable operation of the network.</t>
@@ -513,7 +513,7 @@ module ietf-petra {
 
       <section anchor="multilayer" title="Multilayer Energy Management">
         <t>The concept of multilayer L3-L1 collection involves integrating data from different network layers to provide a comprehensive view of network operations. The use case of multilayer involves collecting and correlating data from Layer 3 (network layer) down to Layer 1 (physical layer). This multilayer approach allows for better network performance, optimization, and troubleshooting by providing end-to-end visibility.</t>
-        
+
         <t>Leveraging PETRA API for multilayer L3-L1 collection use case enhances energy management by providing comprehensive visibility, enabling optimization, and supporting proactive management. This makes PETRA a useful tool for more accurate, efficient and effective energy management in modern networks.</t>
 
       </section>
@@ -532,14 +532,14 @@ module ietf-petra {
 |                                                                    |
 +--------------------------------------------------------------------+
 
-(a)             (b)             (c)                             
-Inventory       Monitor      +- DataSheets/DataBase       
-Of identity     Energy       |  and/or via API                    
-and Capability  Efficiency   |  Metadata and other                
-      ^              ^       | device/component/network           
+(a)             (b)             (c)
+Inventory       Monitor      +- DataSheets/DataBase
+Of identity     Energy       |  and/or via API
+and Capability  Efficiency   |  Metadata and other
+      ^              ^       | device/component/network
       |              |       | related information:                  (g)
       |              |       |                                      PETRA
-      |              |       |  .Power/Energy related metrics         API 
+      |              |       |  .Power/Energy related metrics         API
       |              |       |  .information                           ^
       |              |       |  .origin of Energy Mix                  |
       |              |       |  .carbon aware based on location        |
@@ -570,7 +570,7 @@ and Capability  Efficiency   |  Metadata and other
 | |         |  |           |  |                |  |                | |
 | +---------+  +-----------+  +----------------+  +----------------+ |
 +--------------------------------------------------------------------+
-          
+
               ]]></artwork>
         </figure>
       </t>
