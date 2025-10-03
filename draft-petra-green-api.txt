@@ -124,14 +124,14 @@ Table of Contents
    *  Watts per Gigabit: How many Watts are consumed per Gigabit of
       traffic traversing the path.
 
-   *  Carbon Intensity: How much carbon emissions are generated as a
-      consequence of the energy consumed.
-
    Some other parameters that could be considered as well as part of the
    energy information include:
 
    *  Renewable Percentage: How much of the energy consumed comes from
       renewable energy sources.
+
+   *  Carbon Intensity: How much carbon emissions are generated as a
+      consequence of the energy consumed.
 
    *  ...
 
@@ -179,7 +179,6 @@ Table of Contents
                  +--:(success)
                  |  +--ro success
                  |     +--ro watts-per-gigabit?   decimal64
-                 |     +--ro carbon-intensity?    uint32
                  +--:(invalid-address)
                     +--ro invalid-address
 
@@ -248,8 +247,7 @@ Table of Contents
        {
          'output': {
            'success': {
-             'watts-per-gigabit': '191.855',
-             'carbon-intensity': '108'
+             'watts-per-gigabit': '191.855'
            }
          }
        }
@@ -272,12 +270,6 @@ Table of Contents
          units W/Gb;
          description
            "Watts consumed per Gigabit transmitted";
-       }
-       leaf carbon-intensity {
-         type uint32;
-         units gCO2e/kWh;
-         description
-           "Grams of CO2 per kWh";
        }
      }
 

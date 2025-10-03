@@ -1265,9 +1265,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="normal" id="section-3.1-2.1">Watts per Gigabit: How many Watts are consumed per Gigabit of traffic traversing the
             path.<a href="#section-3.1-2.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.1-2.2">Carbon Intensity: How much carbon emissions are generated as a consequence of the
-            energy consumed.<a href="#section-3.1-2.2" class="pilcrow">¶</a>
-</li>
         </ul>
 <p id="section-3.1-3">Some other parameters that could be considered as well as part of the energy information
           include:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
@@ -1275,7 +1272,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="normal" id="section-3.1-4.1">Renewable Percentage: How much of the energy consumed comes from renewable energy
             sources.<a href="#section-3.1-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.1-4.2">...<a href="#section-3.1-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.1-4.2">Carbon Intensity: How much carbon emissions are generated as a consequence of the
+              energy consumed.<a href="#section-3.1-4.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-4.3">...<a href="#section-3.1-4.3" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -1319,7 +1319,6 @@ module: ietf-petra
               +--:(success)
               |  +--ro success
               |     +--ro watts-per-gigabit?   decimal64
-              |     +--ro carbon-intensity?    uint32
               +--:(invalid-address)
                  +--ro invalid-address
 
@@ -1394,8 +1393,7 @@ module ietf-petra {
     {
       'output': {
         'success': {
-          'watts-per-gigabit': '191.855',
-          'carbon-intensity': '108'
+          'watts-per-gigabit': '191.855'
         }
       }
     }
@@ -1418,12 +1416,6 @@ module ietf-petra {
       units W/Gb;
       description
         "Watts consumed per Gigabit transmitted";
-    }
-    leaf carbon-intensity {
-      type uint32;
-      units gCO2e/kWh;
-      description
-        "Grams of CO2 per kWh";
     }
   }
 
