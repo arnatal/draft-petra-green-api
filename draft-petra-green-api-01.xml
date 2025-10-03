@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc [
+  <!-- One method to get references from the online citation libraries.
+There has to be one entity for each item to be referenced.
+An alternate method (rfc include) is described in the references. -->
+
+  <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+  <!ENTITY RFC3688 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+  <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
+  <!ENTITY RFC8340 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml">
+  <!ENTITY RFC6020 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
+  <!ENTITY RFC6241 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
+  <!ENTITY RFC6242 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml">
+  <!ENTITY RFC6830 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6830.xml">
+  <!ENTITY RFC6991 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
+  <!ENTITY RFC8309 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8309.xml">
+  <!ENTITY RFC8040 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml">
+  <!ENTITY I-D.belmq-green-framework PUBLIC "" "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.belmq-green-framework.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt'?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs),
+please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+(Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes"?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="3"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes"?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space
+(using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes"?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no"?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="info" docName="draft-petra-green-api-01" ipr="trust200902"
+  submissionType="IETF">
+  <!-- category values: std, bcp, info, exp, and historic
+  ipr values: full3667, noModification3667, noDerivatives3667
+  you can add the attributes updates="NNNN" and obsoletes="NNNN"
+  they will automatically be output with "(if approved)" -->
+
+  <!-- ***** FRONT MATTER ***** -->
+
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the
+    full title is longer than 39 characters -->
+
+    <title abbrev="Energy-API">Path Energy Traffic Ratio API (PETRA)</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <!-- Another author who claims to be an editor -->
+
+    <author fullname="Alberto Rodriguez-Natal" initials="A." surname="Rodriguez-Natal">
+      <organization>Cisco</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Barcelona</city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>natal@cisco.com</email>
+      </address>
+    </author>
+
+    <author fullname="Luis M. Contreras" initials="L. M." surname="Contreras">
+      <organization>Telefonica</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Madrid</city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>luismiguel.contrerasmurillo@telefonica.com</email>
+      </address>
+    </author>
+
+    <author fullname="Alejandro Muniz" initials="A." surname="Muniz">
+      <organization>Telefonica</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Madrid</city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>alejandro.muniz@telefonica.com</email>
+      </address>
+    </author>
+
+    <author fullname="Marisol Palmero" initials="M." surname="Palmero">
+      <organization></organization>
+      <address>
+        <postal>
+          <street></street>
+          <city></city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>marisol.ietf@gmail.com</email>
+      </address>
+    </author>
+
+    <author fullname="Fernando Munoz" initials="F." surname="Munoz">
+      <organization>Cisco</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city>Madrid</city>
+          <region></region>
+          <code></code>
+          <country>Spain</country>
+        </postal>
+        <phone></phone>
+        <email>fmunozma@cisco.com</email>
+      </address>
+    </author>
+
+    <author fullname="Jan Lindblad" initials="J." surname="Lindblad">
+      <organization>All For Eco</organization>
+      <address>
+        <postal>
+          <street></street>
+          <city></city>
+          <region></region>
+          <code></code>
+          <country></country>
+        </postal>
+        <phone></phone>
+        <email>jan.lindblad+ietf@for.eco</email>
+      </address>
+    </author>
+
+    <date year="2025" />
+
+    <area>IETF</area>
+
+    <workgroup>GREEN</workgroup>
+
+    <keyword>energy, network, underlay</keyword>
+
+    <abstract>
+      <t>This document describes an API to query a network regarding its Energy Traffic Ratio for a
+        given path.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+
+      <t>Sustainability is becoming one of the major societal goals for the next decade, and
+        networks are one of the major consumers of energy nowadays. Sustainability of network
+        services is thus one of the forefronts of innovation and action from network service
+        stakeholders, involving manufacturers, operators and customers. In this line, there is a
+        shared goal of achieving better energy awareness.</t>
+
+      <t>As with any other network metric, the energy traffic ratio could be collected from the
+        underlying network infrastructure. However, there is not a common or single definition of
+        energy metrics towards network consumers so that can be uniformly reported, particularly in
+        heterogeneous network scenarios. This document introduces an API to query networks about
+        Energy Traffic Ratio.</t>
+
+    </section>
+
+    <section title="Terminology and Requirements Notation">
+      <t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD
+        NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+        interpreted as described in BCP 14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref>
+        when, and only when, they appear in all capitals, as shown here.</t>
+
+    </section>
+
+    <section anchor="api" title="Path Energy Traffic Ratio API (PETRA)">
+      <t> This documents describes an API to query a network about the Energy Traffic Ratio for a given path. It takes as input the source and destination of a path along with the traffic throughput between and returns energy information related to the traffic on the path. This is energy computed by the infrastructure that is dynamically part of the traffic path. The API is agnostic to the actual hops and underlaying infrastructure that enables a path, which might change transparently to the API. This document only describes the API, the computation of the energy information to return is out of the scope of this document. </t>
+
+      <section anchor="energy" title="Energy Information">
+        <t>This API allows to return a number of energy attributes associated with the path and the
+          traffic. Currently the parameters that could be returned as energy information as part of
+          the query are:</t>
+        <ul>
+          <li>Watts per Gigabit: How many Watts are consumed per Gigabit of traffic traversing the
+            path.</li>
+          <li>Carbon Intensity: How much carbon emissions are generated as a consequence of the
+            energy consumed.</li>
+        </ul>
+
+        <t>Some other parameters that could be considered as well as part of the energy information
+          include: </t>
+        <ul>
+          <li>Renewable Percentage: How much of the energy consumed comes from renewable energy
+            sources.</li>
+          <li>...</li>
+        </ul>
+
+
+      </section>
+
+      <section anchor="recursive" title="Recursive Usage">
+        <t>The API is envisioned in such a way that could be used recursively. That means, subpaths
+          could report their energy consumption using PETRA and such energy consumption could be
+          aggregated and reported for the overall path also using PETRA.</t>
+
+        <t>Similarly, this API could be (recursively) used to provide energy information according to the definition of Service Models in an SDN context as described in <xref target="RFC8309"/>. In that case, using Figure 3 in <xref target="RFC8309"/> as reference, PETRA could be used between the Controller(s) and the Network Orchestrator(s), between the Network Orchestrator(s) and the Service Orchestrator, and between the Service Orchestrator and the Customer(s).</t>
+
+        <t>While considering recursive usage, the aspect of double-counting shall also be taken into consideration. Double counting refers to the fact of counting more than once the same energy consumed. Organizations using PETRA in a recursive manner need to take appropriate measures to ensure no double-counting occurs across recursive calls to the API.</t>
+
+      </section>
+
+    </section>
+
+
+    <section anchor="sec-yang" title="YANG Module">
+      <t>This is a posible definition of PETRA as a module following the YANG specification <xref
+        target="RFC6020" />.</t>
+
+      <section title="Module Structure">
+        <t>This section uses the graphical representation of data models defined in <xref
+            target="RFC8340" />.</t>
+        <t>
+          <figure>
+            <artwork><![CDATA[
+module: ietf-petra
+  +--rw energy
+     +---x query
+        +---w input
+        |  +---w src-ip        ietf-inet-types:ip-address
+        |  +---w dst-ip        ietf-inet-types:ip-address
+        |  +---w throughput    uint32
+        +--ro output
+           +--ro (result)?
+              +--:(success)
+              |  +--ro success
+              |     +--ro watts-per-gigabit?   decimal64
+              |     +--ro carbon-intensity?    uint32
+              +--:(invalid-address)
+                 +--ro invalid-address
+
+                ]]></artwork>
+          </figure>
+        </t>
+        <t />
+      </section>
+
+      <section title="Module Definition">
+        <t>
+          <figure>
+            <artwork><![CDATA[<CODE BEGINS> file "ietf-petra@2024-07-05.yang"
+module ietf-petra {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-petra";
+  prefix ietf-petra;
+
+  import ietf-inet-types {
+    prefix ietf-inet-types;
+  }
+
+  organization
+    "";
+  contact
+    "";
+  description
+    "Initial YANG rendition of the PETRA Energy API, v1.0.1
+
+    Copyright (c) 2025 IETF Trust and the persons identified as
+    authors of the code. All rights reserved.
+
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject to
+    the license terms contained in, the Revised BSD License set
+    forth in Section 4.c of the IETF Trust's Legal Provisions
+    Relating to IETF Documents
+    (https://trustee.ietf.org/license-info).
+
+    This version of this YANG module is part of RFC XXXX
+    (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+    for full legal notices.
+      
+    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
+    'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
+    'NOT RECOMMENDED', 'MAY', and 'OPTIONAL' in this document
+    are to be interpreted as described in BCP 14 (RFC 2119)
+    (RFC 8174) when, and only when, they appear in all
+    capitals, as shown here.
+    ";
+
+/*
+    If you have an implementation of this YANG module, you could 
+    access it like something this over RESTCONF:
+
+    $ curl --location --request POST \
+      'https://localhost:8008/restconf/operations/energy/query' \
+      --header 'Content-Type: application/yang-data+json' \
+      --user 'admin:admin' \
+      --data-raw '{
+          'input' : {
+              'src-ip': '10.10.10.10',
+              'dst-ip': '10.20.20.20',
+              'throughput': '40'
+          }
+        }'
+
+    And if all goes well, you might receive (besides all the 
+    HTTP headers) a reply body with something like this:
+
+    {
+      'output': {
+        'success': {
+          'watts-per-gigabit': '191.855',
+          'carbon-intensity': '108'
+        }
+      }
+    }
+*/
+
+  revision 2025-05-12 {
+    description
+      "Initial YANG rendition of the PETRA Energy API, v1.0.1";
+    reference
+      "RFC XXXX: ...";
+  }
+
+  grouping energy-metrics-g {
+    description
+      "Grouping for query result metrics.";
+    leaf watts-per-gigabit {
+      type decimal64 {
+        fraction-digits 3;
+      }
+      units W/Gb;
+      description
+        "Watts consumed per Gigabit transmitted";
+    }
+    leaf carbon-intensity {
+      type uint32;
+      units gCO2e/kWh;
+      description
+        "Grams of CO2 per kWh";
+    }
+  }
+
+  container energy {
+    description
+      "PETRA API top level container.";
+    action query {
+      description 
+        "Query the network for energy consupmtion";
+      input {
+        leaf src-ip {
+          type ietf-inet-types:ip-address;
+          mandatory true;
+          description 
+            "Source IP address";
+        }
+        leaf dst-ip {
+          type ietf-inet-types:ip-address;
+          mandatory true;
+          description 
+            "Destination IP address";
+        }
+        leaf throughput {
+          type uint32;
+          units Gb/s;
+          mandatory true;
+          description
+            "Throughput between source and destination
+            (in gigabits per second)";
+        }
+      }
+      output {
+        choice result {
+          description
+            "Choice of which kind of result the query gave.";
+          container success {
+            description
+              "Successful operation";
+            uses energy-metrics-g;
+          }
+          container invalid-address {
+            description
+              "Invalid source/destination IP address supplied";  
+          }
+        }
+      }
+    }
+  }
+}
+            <CODE ENDS>]]></artwork>
+          </figure>
+        </t>
+      </section>
+
+    </section>
+
+
+    <section anchor="sec" title="Security Considerations">
+      <t>TBD</t>
+
+    </section>
+
+    <section anchor="acks" title="Acknowledgments">
+      <t>Kudos to Elis Lulja for his help with the OpenAPI specification in early versions of this
+        draft. Thanks to Fernando Sanz Garcia and Lori Jakab for their help and support on this
+        work. </t>
+        
+        <t>The contribution of Telefonica to this document has been
+   supported by the Smart Networks and Services Joint Undertaking (SNS
+   JU) under the European Union's Horizon Europe research and innovation
+   projects 6Green (Grant Agreement no. 101096925) and Exigence (Grant
+   Agreement no. 101139120).</t>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+
+      <t>The IANA is requested to as assign a new namespace URI from the IETF XML registry.</t>
+
+      <t>This document registers the following namesace URIs in the IETF XML registry <xref
+          target="RFC3688" />:</t>
+
+      <t />
+
+      <t>--------------------------------------------------------------------</t>
+
+      <t>URI: urn:ietf:params:xml:ns:yang:ietf-petra</t>
+
+      <t>Registrant Contact: The IESG.</t>
+
+      <t>XML: N/A, the requested URI is an XML namespace.</t>
+
+      <t>--------------------------------------------------------------------</t>
+
+      <t>This document registers the following YANG modules in the "YANG Module Names" registry <xref
+          target="RFC6020" />:</t>
+
+      <t>--------------------------------------------------------------------</t>
+      <t>Name: ietf-petra</t>
+      <t>Namespace: urn:ietf:params:xml:ns:yang:ietf-petra</t>
+      <t>Prefix: petra</t>
+      <t>Reference: RFC XXX</t>
+      <t>--------------------------------------------------------------------</t>
+
+
+      <t />
+
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+      &RFC2119;
+
+      &RFC3688;
+
+      &RFC6020;
+
+      &RFC6241;
+
+      &RFC6242;
+
+      &RFC6991;
+
+      &RFC8040;
+
+      &RFC8174;
+
+      &RFC8309;
+
+      &RFC8340;
+
+      &I-D.belmq-green-framework;
+
+    </references>
+
+    <references title="Informative References">
+
+    </references>
+
+    <section anchor="use-cases" title="Use Cases">
+      <t>This section describes some use-cases where this specification might be useful. </t>
+
+      <section anchor="sdwan" title="SD-WAN">
+        <t>Software-Defined Wide-Area Networks (SD-WAN) have become a common way for enterprises to provide cost-effective connectivity across their different geographically distributed sites. Typically, SD-WAN deployments operate as an overlay network that is established on top of an existing underlay connectivity network. One aspect to consider is that in many SD-WAN production deployments the operator of the overlay network and the operator of the underlay network are different organizations.</t>
+        
+        <t>This poses an additional challenge when trying to derive sustainability metrics. Even if the underlay network is instrumented to collect energy data, this data is opaque to the operator of the overlay network which has no access to underlay information. While operators of underlay networks offer certain general network metrics to overlay operators, no interface has been defined to allow the overlay operator to query the underlay network for energy information.</t>
+
+        <t>In this context, the PETRA specification presented in this document enables the operator of the SD-WAN network to coordinate with the underlay operator to capture sustainability data. This in turns opens further use-cases, from observability and reporting to potentially overlay policies based on underlay energy data, further enabling an overall more sustainable operation of the network.</t>
+
+      </section>
+
+      <section anchor="multilayer" title="Multilayer Energy Management">
+        <t>The concept of multilayer L3-L1 collection involves integrating data from different network layers to provide a comprehensive view of network operations. The use case of multilayer involves collecting and correlating data from Layer 3 (network layer) down to Layer 1 (physical layer). This multilayer approach allows for better network performance, optimization, and troubleshooting by providing end-to-end visibility.</t>
+        
+        <t>Leveraging PETRA API for multilayer L3-L1 collection use case enhances energy management by providing comprehensive visibility, enabling optimization, and supporting proactive management. This makes PETRA a useful tool for more accurate, efficient and effective energy management in modern networks.</t>
+
+      </section>
+
+    </section>
+
+    <section anchor="framework" title="Requirements for Energy Efficiency Management ">
+      <t>The document Framework for Energy Efficiency Management <xref target="I-D.belmq-green-framework"/> describes a framework that comprises a controller element. In that document, the tasks of the controller are defined as "collection, compute and aggregate". In the context of that framework, the controller could also expose PETRA to offer path-related energy information. The figure below updates the one present in <xref target="I-D.belmq-green-framework"/> to add an additional interface (interface 'g') to the controller to represent the Path Traffic Ratio API. </t>
+      <t>
+        <figure>
+          <artwork><![CDATA[
+
++--------------------------------------------------------------------+
+|                                                                    |
+|                  (3) Network Domain Level                          |
+|                                                                    |
++--------------------------------------------------------------------+
+
+(a)             (b)             (c)                             
+Inventory       Monitor      +- DataSheets/DataBase       
+Of identity     Energy       |  and/or via API                    
+and Capability  Efficiency   |  Metadata and other                
+      ^              ^       | device/component/network           
+      |              |       | related information:                  (g)
+      |              |       |                                      PETRA
+      |              |       |  .Power/Energy related metrics         API 
+      |              |       |  .information                           ^
+      |              |       |  .origin of Energy Mix                  |
+      |              |       |  .carbon aware based on location        |
+      |              |       |                                         |
+      |              |       v                                         |
++--------------------------------------------------------------------+ |
+|                                                                    | |
+|       (2) controller (collection, compute and aggregate?)          +-+
+|                                                                    |
++--------------------------------------------------------------------+
+                ^                      ^                      ^ |
+      (d)        |     (e)              |   (f)                | |
+      Inventory  |     Monitor power    |   Control            | |
+      Capability |     Proportion       |   (Energy saving     | |
+                 |     Energy efficiency|   Functionality      | |
+                 |     ratio, power     |   Localized mgmt/    | |
+                 |     consumption,     |   network wide mgmt) | |
+                 |     etc)             |                      | |
+                 |                      |                      | v
++--------------------------------------------------------------------+
+|                                                                    |
+|                       (1) Device/Component                         |
+|                                                                    |
+| +---------+  +-----------+  +----------------+  +----------------+ |
+| | (I)     |  | (II)      |  | (III)          |  | (IV)           | |
+| |         |  |           |  | Legacy         |  | 'Attached'(PoE | |
+| | Device  |  | Component |  | Device         |  | end Point)     | |
+| |         |  |           |  |                |  |                | |
+| +---------+  +-----------+  +----------------+  +----------------+ |
++--------------------------------------------------------------------+
+          
+              ]]></artwork>
+        </figure>
+      </t>
+
+    </section>
+
+
+  </back>
+</rfc>
