@@ -503,60 +503,7 @@ module ietf-petra {
     </section>
 
     <section anchor="framework" title="Requirements for Energy Efficiency Management ">
-      <t>The document Framework for Energy Efficiency Management <xref target="I-D.belmq-green-framework"/> describes a framework that comprises a controller element. In that document, the tasks of the controller are defined as "collection, compute and aggregate". In the context of that framework, the controller could also expose PETRA to offer path-related energy information. The figure below updates the one present in <xref target="I-D.belmq-green-framework"/> to add an additional interface (interface 'g') to the controller to represent the Path Traffic Ratio API. </t>
-      <t>
-        <figure>
-          <artwork><![CDATA[
-
-+--------------------------------------------------------------------+
-|                                                                    |
-|                  (3) Network Domain Level                          |
-|                                                                    |
-+--------------------------------------------------------------------+
-
-(a)             (b)             (c)
-Inventory       Monitor      +- DataSheets/DataBase
-Of identity     Energy       |  and/or via API
-and Capability  Efficiency   |  Metadata and other
-      ^              ^       | device/component/network
-      |              |       | related information:                  (g)
-      |              |       |                                      PETRA
-      |              |       |  .Power/Energy related metrics         API
-      |              |       |  .information                           ^
-      |              |       |  .origin of Energy Mix                  |
-      |              |       |  .carbon aware based on location        |
-      |              |       |                                         |
-      |              |       v                                         |
-+--------------------------------------------------------------------+ |
-|                                                                    | |
-|       (2) controller (collection, compute and aggregate?)          +-+
-|                                                                    |
-+--------------------------------------------------------------------+
-                ^                      ^                      ^ |
-      (d)        |     (e)              |   (f)                | |
-      Inventory  |     Monitor power    |   Control            | |
-      Capability |     Proportion       |   (Energy saving     | |
-                 |     Energy efficiency|   Functionality      | |
-                 |     ratio, power     |   Localized mgmt/    | |
-                 |     consumption,     |   network wide mgmt) | |
-                 |     etc)             |                      | |
-                 |                      |                      | v
-+--------------------------------------------------------------------+
-|                                                                    |
-|                       (1) Device/Component                         |
-|                                                                    |
-| +---------+  +-----------+  +----------------+  +----------------+ |
-| | (I)     |  | (II)      |  | (III)          |  | (IV)           | |
-| |         |  |           |  | Legacy         |  | 'Attached'(PoE | |
-| | Device  |  | Component |  | Device         |  | end Point)     | |
-| |         |  |           |  |                |  |                | |
-| +---------+  +-----------+  +----------------+  +----------------+ |
-+--------------------------------------------------------------------+
-
-              ]]></artwork>
-        </figure>
-      </t>
-
+      <t>The document Framework for Energy Efficiency Management <xref target="I-D.belmq-green-framework"/> describes a framework that comprises a controller element. In that document, the tasks of the controller are defined as "collection, compute and aggregate". In the context of that framework, the controller could also expose PETRA to offer path-related energy information. </t>
     </section>
     <section numbered="false" title="Contributors" toc="default">
 
