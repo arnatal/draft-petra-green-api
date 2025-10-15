@@ -80,9 +80,9 @@ Table of Contents
 
 1.  Introduction
 
-   Sustainability is becoming one of the major societal goals for the
+   Energy management is becoming one of the major societal goals for the
    next decade, and networks are one of the major consumers of energy
-   nowadays.  Sustainability of network services is thus one of the
+   nowadays.  Energy management of network services is thus one of the
    forefronts of innovation and action from network service
    stakeholders, involving manufacturers, operators and customers.  In
    this line, there is a shared goal of achieving better energy
@@ -446,21 +446,20 @@ A.1.  SD-WAN
    overlay network and the operator of the underlay network are
    different organizations.
 
-   This poses an additional challenge when trying to derive
-   sustainability metrics.  Even if the underlay network is instrumented
-   to collect energy data, this data is opaque to the operator of the
-   overlay network which has no access to underlay information.  While
-   operators of underlay networks offer certain general network metrics
-   to overlay operators, no interface has been defined to allow the
-   overlay operator to query the underlay network for energy
-   information.
+   This poses an additional challenge when trying to derive energy
+   metrics.  Even if the underlay network is instrumented to collect
+   energy data, this data is opaque to the operator of the overlay
+   network which has no access to underlay information.  While operators
+   of underlay networks offer certain general network metrics to overlay
+   operators, no interface has been defined to allow the overlay
+   operator to query the underlay network for energy information.
 
    In this context, the PETRA specification presented in this document
    enables the operator of the SD-WAN network to coordinate with the
-   underlay operator to capture sustainability data.  This in turns
-   opens further use-cases, from observability and reporting to
-   potentially overlay policies based on underlay energy data, further
-   enabling an overall more sustainable operation of the network.
+   underlay operator to capture energy data.  This in turns opens
+   further use-cases, from observability and reporting to potentially
+   overlay policies based on underlay energy data, further enabling an
+   overall more energy-efficient operation of the network.
 
    In addition to energy considerations in SD-WAN deployments, PETRA can
    also be leveraged for broader energy-aware service routing.  In this
@@ -509,60 +508,18 @@ A.3.  SLA Negotiation for Energy-Efficient Services
 Appendix B.  Requirements for Energy Efficiency Management
 
    The document Framework for Energy Efficiency Management
-   [I-D.belmq-green-framework] describes a framework that comprises a
-   controller element.  In that document, the tasks of the controller
-   are defined as "collection, compute and aggregate".  In the context
-   of that framework, the controller could also expose PETRA to offer
-   path-related energy information.  The figure below updates the one
-   present in [I-D.belmq-green-framework] to add an additional interface
-   (interface 'g') to the controller to represent the Path Traffic Ratio
-   API.
+   [I-D.belmq-green-framework] describes a reference model for energy
+   management.  The model includes an 'API Service Interface', labeled
+   as interface (g) in the document, which "enables access for service
+   consumption, enabling data retrieval, control, and integration
+   through API".
 
-+--------------------------------------------------------------------+
-|                                                                    |
-|                  (3) Network Domain Level                          |
-|                                                                    |
-+--------------------------------------------------------------------+
-
-(a)             (b)             (c)
-Inventory       Monitor      +- DataSheets/DataBase
-Of identity     Energy       |  and/or via API
-and Capability  Efficiency   |  Metadata and other
-      ^              ^       | device/component/network
-      |              |       | related information:                  (g)
-      |              |       |                                      PETRA
-      |              |       |  .Power/Energy related metrics         API
-      |              |       |  .information                           ^
-      |              |       |  .origin of Energy Mix                  |
-      |              |       |  .carbon aware based on location        |
-      |              |       |                                         |
-      |              |       v                                         |
-+--------------------------------------------------------------------+ |
-|                                                                    | |
-|       (2) controller (collection, compute and aggregate?)          +-+
-|                                                                    |
-+--------------------------------------------------------------------+
-                ^                      ^                      ^ |
-      (d)        |     (e)              |   (f)                | |
-      Inventory  |     Monitor power    |   Control            | |
-      Capability |     Proportion       |   (Energy saving     | |
-                 |     Energy efficiency|   Functionality      | |
-                 |     ratio, power     |   Localized mgmt/    | |
-                 |     consumption,     |   network wide mgmt) | |
-                 |     etc)             |                      | |
-                 |                      |                      | v
-+--------------------------------------------------------------------+
-|                                                                    |
-|                       (1) Device/Component                         |
-|                                                                    |
-| +---------+  +-----------+  +----------------+  +----------------+ |
-| | (I)     |  | (II)      |  | (III)          |  | (IV)           | |
-| |         |  |           |  | Legacy         |  | 'Attached'(PoE | |
-| | Device  |  | Component |  | Device         |  | end Point)     | |
-| |         |  |           |  |                |  |                | |
-| +---------+  +-----------+  +----------------+  +----------------+ |
-+--------------------------------------------------------------------+
-
+   In that context, PETRA is one example of such 'API Service
+   Interface'.  In the particular case of PETRA, the API might be used
+   to consume from the Network controller, the Domain controller, or
+   both.  Appendix A describes a few use-cases that could make use of
+   PETRA as an 'API Service Interface' within the Framework for Energy
+   Efficiency Management [I-D.belmq-green-framework].
 
 Contributors
 
