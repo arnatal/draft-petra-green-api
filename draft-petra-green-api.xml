@@ -505,7 +505,7 @@ module ietf-petra {
     <section anchor="framework" title="Requirements for Energy Efficiency Management ">
       <t>The document Framework for Energy Efficiency Management <xref target="I-D.belmq-green-framework"/> describes a reference model for energy management. The model includes an 'API Service Interface', labeled as interface (g) in the document, which "enables access for service consumption, enabling data retrieval, control, and integration through API". </t>
 
-      <t>In that context, PETRA is one example of such 'API Service Interface'. In the particular case of PETRA, the API might be used to consume from the Network controller, the Domain controller, or both.</t>
+      <t>In that context, PETRA is one example of such 'API Service Interface'. In the particular case of PETRA, the API might be used to consume from the Network controller, the Domain controller, or both. <xref target="use-cases"/> describes a few use-cases that could make use of PETRA as an 'API Service Interface' within the Framework for Energy Efficiency Management <xref target="I-D.belmq-green-framework"/>.</t>
     </section>
     <section numbered="false" title="Contributors" toc="default">
 
