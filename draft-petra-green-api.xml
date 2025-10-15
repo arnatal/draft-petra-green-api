@@ -155,8 +155,8 @@ please see http://xml.resource.org/authoring/README.html. -->
   <middle>
     <section title="Introduction">
 
-      <t>Sustainability is becoming one of the major societal goals for the next decade, and
-        networks are one of the major consumers of energy nowadays. Sustainability of network
+      <t>Energy management is becoming one of the major societal goals for the next decade, and
+        networks are one of the major consumers of energy nowadays. Energy management of network
         services is thus one of the forefronts of innovation and action from network service
         stakeholders, involving manufacturers, operators and customers. In this line, there is a
         shared goal of achieving better energy awareness.</t>
@@ -482,9 +482,9 @@ module ietf-petra {
       <section anchor="sdwan" title="SD-WAN">
         <t>Software-Defined Wide-Area Networks (SD-WAN) have become a common way for enterprises to provide cost-effective connectivity across their different geographically distributed sites. Typically, SD-WAN deployments operate as an overlay network that is established on top of an existing underlay connectivity network. One aspect to consider is that in many SD-WAN production deployments the operator of the overlay network and the operator of the underlay network are different organizations.</t>
 
-        <t>This poses an additional challenge when trying to derive sustainability metrics. Even if the underlay network is instrumented to collect energy data, this data is opaque to the operator of the overlay network which has no access to underlay information. While operators of underlay networks offer certain general network metrics to overlay operators, no interface has been defined to allow the overlay operator to query the underlay network for energy information.</t>
+        <t>This poses an additional challenge when trying to derive energy metrics. Even if the underlay network is instrumented to collect energy data, this data is opaque to the operator of the overlay network which has no access to underlay information. While operators of underlay networks offer certain general network metrics to overlay operators, no interface has been defined to allow the overlay operator to query the underlay network for energy information.</t>
 
-        <t>In this context, the PETRA specification presented in this document enables the operator of the SD-WAN network to coordinate with the underlay operator to capture sustainability data. This in turns opens further use-cases, from observability and reporting to potentially overlay policies based on underlay energy data, further enabling an overall more sustainable operation of the network.</t>
+        <t>In this context, the PETRA specification presented in this document enables the operator of the SD-WAN network to coordinate with the underlay operator to capture energy data. This in turns opens further use-cases, from observability and reporting to potentially overlay policies based on underlay energy data, further enabling an overall more energy-efficient operation of the network.</t>
 
         <t>In addition to energy considerations in SD-WAN deployments, PETRA can also be leveraged for broader energy-aware service routing. In this context, network controllers and service orchestrators, such as SD-WAN controllers, transport SDN controllers, 5G slice orchestrators, or multi-domain service orchestrators, can use PETRA metrics not only to balance latency, throughput, or load, but also to optimize path selection according to energy-efficiency objectives. For example, paths with the lowest energy-consumption could be preferred, enabling service differentiation where energy-efficient paths are explicitly prioritized. This extends the SD-WAN use case into a more general paradigm where routing decisions are jointly driven by network performance and energy impact.</t>
       </section>
