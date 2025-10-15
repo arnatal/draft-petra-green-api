@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rodriguez-Natal, et al.</td>
-<td class="center">Expires 6 April 2026</td>
+<td class="center">Expires 18 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-petra-green-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-03" class="published">3 October 2025</time>
+<time datetime="2025-10-15" class="published">15 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-06">6 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-18">18 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1122,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1207,6 +1207,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-multilayer-energy-managemen" class="internal xref">Multilayer Energy Management</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-sla-negotiation-for-energy-" class="internal xref">SLA Negotiation for Energy-Efficient Services</a></p>
 </li>
             </ul>
 </li>
@@ -1528,7 +1531,7 @@ module ietf-petra {
 <dl class="references">
 <dt id="I-D.belmq-green-framework">[I-D.belmq-green-framework]</dt>
         <dd>
-<span class="refAuthor">Claise, B.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Lindblad, J.</span>, <span class="refAuthor">Palmero, M. P.</span>, <span class="refAuthor">Stephan, E.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Framework for Energy Efficiency Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-belmq-green-framework-04</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-belmq-green-framework-04">https://datatracker.ietf.org/doc/html/draft-belmq-green-framework-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Claise, B.</span>, <span class="refAuthor">Contreras, L. M.</span>, <span class="refAuthor">Lindblad, J.</span>, <span class="refAuthor">Palmero, M. P.</span>, <span class="refAuthor">Stephan, E.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Framework for Energy Efficiency Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-belmq-green-framework-05</span>, <time datetime="2025-10-06" class="refDate">6 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-belmq-green-framework-05">https://datatracker.ietf.org/doc/html/draft-belmq-green-framework-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1592,6 +1595,7 @@ module ietf-petra {
 <p id="appendix-A.1-1">Software-Defined Wide-Area Networks (SD-WAN) have become a common way for enterprises to provide cost-effective connectivity across their different geographically distributed sites. Typically, SD-WAN deployments operate as an overlay network that is established on top of an existing underlay connectivity network. One aspect to consider is that in many SD-WAN production deployments the operator of the overlay network and the operator of the underlay network are different organizations.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-2">This poses an additional challenge when trying to derive sustainability metrics. Even if the underlay network is instrumented to collect energy data, this data is opaque to the operator of the overlay network which has no access to underlay information. While operators of underlay networks offer certain general network metrics to overlay operators, no interface has been defined to allow the overlay operator to query the underlay network for energy information.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-3">In this context, the PETRA specification presented in this document enables the operator of the SD-WAN network to coordinate with the underlay operator to capture sustainability data. This in turns opens further use-cases, from observability and reporting to potentially overlay policies based on underlay energy data, further enabling an overall more sustainable operation of the network.<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-4">In addition to energy considerations in SD-WAN deployments, PETRA can also be leveraged for broader energy-aware service routing. In this context, network controllers and service orchestrators, such as SD-WAN controllers, transport SDN controllers, 5G slice orchestrators, or multi-domain service orchestrators, can use PETRA metrics not only to balance latency, throughput, or load, but also to optimize path selection according to energy-efficiency objectives. For example, paths with the lowest energy-consumption could be preferred, enabling service differentiation where energy-efficient paths are explicitly prioritized. This extends the SD-WAN use case into a more general paradigm where routing decisions are jointly driven by network performance and energy impact.<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="multilayer">
@@ -1601,6 +1605,14 @@ module ietf-petra {
         </h3>
 <p id="appendix-A.2-1">The concept of multilayer L3-L1 collection involves integrating data from different network layers to provide a comprehensive view of network operations. The use case of multilayer involves collecting and correlating data from Layer 3 (network layer) down to Layer 1 (physical layer). This multilayer approach allows for better network performance, optimization, and troubleshooting by providing end-to-end visibility.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-2">Leveraging PETRA API for multilayer L3-L1 collection use case enhances energy management by providing comprehensive visibility, enabling optimization, and supporting proactive management. This makes PETRA a useful tool for more accurate, efficient and effective energy management in modern networks.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="SLA">
+<section id="appendix-A.3">
+        <h3 id="name-sla-negotiation-for-energy-">
+<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-sla-negotiation-for-energy-" class="section-name selfRef">SLA Negotiation for Energy-Efficient Services</a>
+        </h3>
+<p id="appendix-A.3-1">Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption, renewable energy percentage, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees, but also on their environmental footprint, for example requesting that at least 60% of traffic be carried over renewable-powered infrastructure. Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

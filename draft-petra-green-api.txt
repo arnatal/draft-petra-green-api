@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 6 April 2026                                         Telefonica
+Expires: 18 April 2026                                        Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                          3 October 2025
+                                                         15 October 2025
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2026.
+   This Internet-Draft will expire on 18 April 2026.
 
 Copyright Notice
 
@@ -73,6 +73,7 @@ Table of Contents
    Appendix A.  Use Cases
      A.1.  SD-WAN
      A.2.  Multilayer Energy Management
+     A.3.  SLA Negotiation for Energy-Efficient Services
    Appendix B.  Requirements for Energy Efficiency Management
    Contributors
    Authors' Addresses
@@ -380,9 +381,9 @@ Table of Contents
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.
               P., Stephan, E., and Q. Wu, "Framework for Energy
               Efficiency Management", Work in Progress, Internet-Draft,
-              draft-belmq-green-framework-04, 7 July 2025,
+              draft-belmq-green-framework-05, 6 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-belmq-green-
-              framework-04>.
+              framework-05>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -461,6 +462,19 @@ A.1.  SD-WAN
    potentially overlay policies based on underlay energy data, further
    enabling an overall more sustainable operation of the network.
 
+   In addition to energy considerations in SD-WAN deployments, PETRA can
+   also be leveraged for broader energy-aware service routing.  In this
+   context, network controllers and service orchestrators, such as SD-
+   WAN controllers, transport SDN controllers, 5G slice orchestrators,
+   or multi-domain service orchestrators, can use PETRA metrics not only
+   to balance latency, throughput, or load, but also to optimize path
+   selection according to energy-efficiency objectives.  For example,
+   paths with the lowest energy-consumption could be preferred, enabling
+   service differentiation where energy-efficient paths are explicitly
+   prioritized.  This extends the SD-WAN use case into a more general
+   paradigm where routing decisions are jointly driven by network
+   performance and energy impact.
+
 A.2.  Multilayer Energy Management
 
    The concept of multilayer L3-L1 collection involves integrating data
@@ -476,6 +490,21 @@ A.2.  Multilayer Energy Management
    enabling optimization, and supporting proactive management.  This
    makes PETRA a useful tool for more accurate, efficient and effective
    energy management in modern networks.
+
+A.3.  SLA Negotiation for Energy-Efficient Services
+
+   Another use case for PETRA could the negotiation of Service Level
+   Agreements (SLAs) between operators and enterprise customers.  By
+   exposing PETRA-derived metrics such as energy consumption, renewable
+   energy percentage, providers can offer differentiated SLAs that
+   explicitly include environmental targets.  This enables customers to
+   select network services not only based on performance guarantees, but
+   also on their environmental footprint, for example requesting that at
+   least 60% of traffic be carried over renewable-powered
+   infrastructure.  Such SLAs empower customers to align their digital
+   services with corporate energy-efficient and sustainability goals and
+   reporting requirements, while operators can use PETRA as the trusted
+   source of verifiable energy data.
 
 Appendix B.  Requirements for Energy Efficiency Management
 
