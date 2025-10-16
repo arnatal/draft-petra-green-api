@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-14T01:44:28.041409+00:00",
+  "timestamp": "2025-10-16T01:46:03.047396+00:00",
   "repo": "arnatal/draft-petra-green-api",
   "labels": [
     {
@@ -56,7 +56,7 @@
       "id": "PR_kwDOP7lDec6shWiT",
       "title": "Added A.1 extension and A.3 UC",
       "url": "https://github.com/arnatal/draft-petra-green-api/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "galledohm",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -65,18 +65,28 @@
       "labels": [],
       "body": "# What's Changed\r\nAdded two new use cases to expand PETRA's applicability in modern network environments:\r\n\r\n- Energy-Aware Service Routing: Extended SD-WAN section to show how PETRA enables network controllers (SD-WAN, 5G slice orchestrators, etc.) to optimize path selection based on energy consumption alongside traditional performance metrics.\r\n\r\n- SLA Negotiation for Energy-Efficient Services: New section demonstrating how operators can use PETRA metrics to offer environmentally-focused SLAs, allowing customers to select services based on renewable energy usage and sustainability targets.\r\n\r\n## Impact\r\nBroadens PETRA from basic energy monitoring to advanced routing decisions and business-level sustainability commitments\r\nAddresses growing enterprise demand for verifiable environmental compliance\r\nPositions PETRA as a comprehensive energy-aware networking solution",
       "createdAt": "2025-10-07T15:29:57Z",
-      "updatedAt": "2025-10-07T15:29:57Z",
+      "updatedAt": "2025-10-15T08:23:05Z",
       "baseRepository": "arnatal/draft-petra-green-api",
       "baseRefName": "main",
       "baseRefOid": "ddef8918ef40a30f29cd90c24984d8bead626fab",
       "headRepository": "arnatal/draft-petra-green-api",
       "headRefName": "new-appendix-UCs",
       "headRefOid": "e192edb6e6db2ca25a0582a0af82666834ea69b8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2025-10-15T08:23:05Z",
+      "mergedAt": "2025-10-15T08:23:05Z",
+      "mergedBy": "arnatal",
+      "mergeCommit": {
+        "oid": "00577f95f01b225998b0d22adf68d4dce6f0d1c3"
+      },
+      "comments": [
+        {
+          "author": "arnatal",
+          "authorAssociation": "OWNER",
+          "body": "Thanks @galledohm! Merging this now.",
+          "createdAt": "2025-10-15T08:22:51Z",
+          "updatedAt": "2025-10-15T08:22:51Z"
+        }
+      ],
       "reviews": []
     }
   ]
