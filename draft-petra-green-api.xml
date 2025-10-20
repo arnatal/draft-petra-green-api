@@ -536,7 +536,7 @@ module ietf-petra {
       </section>
 
       <section anchor="SLA" title="SLA Negotiation for Energy-Efficient Services">
-        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption, renewable energy percentage, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees, but also on their environmental footprint, for example requesting that at least 60% of traffic be carried over renewable-powered infrastructure. Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.</t>
+        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption, renewable energy percentage, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees (e.g. latency), but also on their environmental footprint (or a combination of both). For example requesting that at least 60% of traffic be carried over renewable-powered infrastructure. Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.</t>
       </section>
 
     </section>
