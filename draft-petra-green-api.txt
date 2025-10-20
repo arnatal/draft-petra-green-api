@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 18 April 2026                                        Telefonica
+Expires: 23 April 2026                                        Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                         15 October 2025
+                                                         20 October 2025
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2026.
+   This Internet-Draft will expire on 23 April 2026.
 
 Copyright Notice
 
@@ -114,7 +114,9 @@ Table of Contents
    underlaying infrastructure that enables a path, which might change
    transparently to the API.  This document only describes the API, the
    computation of the energy information to return is out of the scope
-   of this document.
+   of this document.  While the current version of this document assumes
+   source and destination as IP addresses, future version of this
+   document might consider other options as well.
 
 3.1.  Energy Information
 
@@ -146,10 +148,47 @@ Table of Contents
    Similarly, this API could be (recursively) used to provide energy
    information according to the definition of Service Models in an SDN
    context as described in [RFC8309].  In that case, using Figure 3 in
-   [RFC8309] as reference, PETRA could be used between the Controller(s)
-   and the Network Orchestrator(s), between the Network Orchestrator(s)
-   and the Service Orchestrator, and between the Service Orchestrator
-   and the Customer(s).
+   [RFC8309] as reference (below), PETRA could be used between the
+   Controller(s) and the Network Orchestrator(s), between the Network
+   Orchestrator(s) and the Service Orchestrator, and between the Service
+   Orchestrator and the Customer(s).
+
+                                                   Customer
+                              ------------------   Service  ----------
+                             |                  |  Model   |          |
+  PETRA as                   |     Service      |<-------->| Customer |
+  Customer Service           |   Orchestrator   |    (a)   |          |
+  related API                |                  |           ----------
+                              ------------------
+                                 .          .
+  ##########################    .            .        (b)   -----------
+                               . (b)          .      ......|Application|
+                              .                .     :     |  BSS/OSS  |
+  PETRA as                   .                  .    :      -----------
+  Service related API       .  Service Delivery  .   :
+                           .       Model          .  :
+                   ------------------    ------------------
+                  |                  |  |                  |
+  #############   |     Network      |  |     Network      |
+                  |   Orchestrator   |  |   Orchestrator   |
+                  |                  |  |                  |
+                  .------------------    ------------------.
+  PETRA as       .         :                       :        .
+  Network API   .          : Network Configuration :         .
+              .            :        Model          :          .
+        ------------     ------------     ------------    ------------
+       |            |   |            |   |            |  |            |
+  ###  | Controller |   | Controller |   | Controller |  | Controller |
+       |            |   |            |   |            |  |            |
+        ------------     ------------     ------------    ------------
+           :              .       .                 :            :
+           :             .         .      Device    :            :
+           :            .           . Configuration :            :
+           :            .           .     Model     :            :
+       ---------     ---------   ---------     ---------      ---------
+      | Network |   | Network | | Network |   | Network |    | Network |
+      | Element |   | Element | | Element |   | Element |    | Element |
+       ---------     ---------   ---------     ---------      ---------
 
    While considering recursive usage, the aspect of double-counting
    shall also be taken into consideration.  Double counting refers to
@@ -324,7 +363,13 @@ Table of Contents
 
 5.  Security Considerations
 
-   TBD
+   In order to mitigate security risks, the PETRA API should implement
+   the necessary mechanisms for authentication, secure data transfer and
+   privacy preservation.  On the other hand, in order to prevent denial
+   of service attacks, new subsequent similar requests could be silently
+   ignored during periods of time, or even requests from the same client
+   could be filtered to prevent system (i.e., controller or
+   orchestrator) affection.
 
 6.  Acknowledgments
 
@@ -336,7 +381,11 @@ Table of Contents
    the Smart Networks and Services Joint Undertaking (SNS JU) under the
    European Union's Horizon Europe research and innovation projects
    6Green (Grant Agreement no. 101096925) and Exigence (Grant Agreement
-   no. 101139120).
+   no. 101139120).  The contribution of A.  Gallego Sánchez to this
+   document has been partially supported by the Smart Networks and
+   Services Joint Undertaking (SNS JU) under the European Union's
+   Horizon Europe research and innovation project Sustain6G (Grant
+   Agreement no. 101191936).
 
 7.  IANA Considerations
 
@@ -497,13 +546,14 @@ A.3.  SLA Negotiation for Energy-Efficient Services
    exposing PETRA-derived metrics such as energy consumption, renewable
    energy percentage, providers can offer differentiated SLAs that
    explicitly include environmental targets.  This enables customers to
-   select network services not only based on performance guarantees, but
-   also on their environmental footprint, for example requesting that at
-   least 60% of traffic be carried over renewable-powered
-   infrastructure.  Such SLAs empower customers to align their digital
-   services with corporate energy-efficient and sustainability goals and
-   reporting requirements, while operators can use PETRA as the trusted
-   source of verifiable energy data.
+   select network services not only based on performance guarantees
+   (e.g. latency), but also on their environmental footprint (or a
+   combination of both).  For example requesting that at least 60% of
+   traffic be carried over renewable-powered infrastructure.  Such SLAs
+   empower customers to align their digital services with corporate
+   energy-efficient and sustainability goals and reporting requirements,
+   while operators can use PETRA as the trusted source of verifiable
+   energy data.
 
 Appendix B.  Requirements for Energy Efficiency Management
 
@@ -527,7 +577,6 @@ Contributors
    Cisco
    Madrid
    Spain
-
    Email: fmunozma@cisco.com
 
 
@@ -536,6 +585,13 @@ Contributors
    Madrid
    Spain
 
+
+   Roland Schott
+   Deutsche Telekom
+   Deutsche-Telekom-Allee 9
+   64295 Darmstadt
+   Germany
+   Email: Roland.Schott@telekom.de
 
 Authors' Addresses
 
