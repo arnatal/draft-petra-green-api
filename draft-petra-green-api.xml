@@ -178,7 +178,7 @@ please see http://xml.resource.org/authoring/README.html. -->
     </section>
 
     <section anchor="api" title="Path Energy Traffic Ratio API (PETRA)">
-      <t> This documents describes an API to query a network about the Energy Traffic Ratio for a given path. It takes as input the source and destination of a path along with the traffic throughput between and returns energy information related to the traffic on the path. This is energy computed by the infrastructure that is dynamically part of the traffic path. The API is agnostic to the actual hops and underlaying infrastructure that enables a path, which might change transparently to the API. This document only describes the API, the computation of the energy information to return is out of the scope of this document. </t>
+      <t> This documents describes an API to query a network about the Energy Traffic Ratio for a given path. It takes as input the source and destination of a path along with the traffic throughput between and returns energy information related to the traffic on the path. This is energy computed by the infrastructure that is dynamically part of the traffic path. The API is agnostic to the actual hops and underlaying infrastructure that enables a path, which might change transparently to the API. This document only describes the API, the computation of the energy information to return is out of the scope of this document. While the current version of this document assumes source and destination as IP addresses, future version of this document might consider other options as well. </t>
 
       <section anchor="energy" title="Energy Information">
         <t>This API allows to return a number of energy attributes associated with the path and the
