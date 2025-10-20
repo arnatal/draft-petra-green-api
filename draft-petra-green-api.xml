@@ -435,7 +435,7 @@ module ietf-petra {
 
 
     <section anchor="sec" title="Security Considerations">
-      <t>TBD</t>
+      <t>In order to mitigate security risks, the PETRA API should implement the necessary mechanisms for authentication, secure data transfer and privacy preservation. On the other hand, in order to prevent denial of service attacks, new subsequent similar requests could be silently ignored during periods of time, or even requests from the same client could be filtered to prevent system (i.e., controller or orchestrator) affection.</t>
 
     </section>
 
