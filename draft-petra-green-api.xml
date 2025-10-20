@@ -207,7 +207,50 @@ please see http://xml.resource.org/authoring/README.html. -->
           could report their energy consumption using PETRA and such energy consumption could be
           aggregated and reported for the overall path also using PETRA.</t>
 
-        <t>Similarly, this API could be (recursively) used to provide energy information according to the definition of Service Models in an SDN context as described in <xref target="RFC8309"/>. In that case, using Figure 3 in <xref target="RFC8309"/> as reference, PETRA could be used between the Controller(s) and the Network Orchestrator(s), between the Network Orchestrator(s) and the Service Orchestrator, and between the Service Orchestrator and the Customer(s).</t>
+        <t>Similarly, this API could be (recursively) used to provide energy information according to the definition of Service Models in an SDN context as described in <xref target="RFC8309"/>. In that case, using Figure 3 in <xref target="RFC8309"/> as reference (below), PETRA could be used between the Controller(s) and the Network Orchestrator(s), between the Network Orchestrator(s) and the Service Orchestrator, and between the Service Orchestrator and the Customer(s).</t>
+
+        <t>
+          <figure>
+            <artwork><![CDATA[
+                                                 Customer
+                            ------------------   Service  ----------
+                           |                  |  Model   |          |
+PETRA as                   |     Service      |<-------->| Customer |
+Customer Service           |   Orchestrator   |    (a)   |          |
+related API                |                  |           ----------
+                            ------------------
+                               .          .
+##########################    .            .        (b)   -----------
+                             . (b)          .      ......|Application|
+                            .                .     :     |  BSS/OSS  |
+PETRA as                   .                  .    :      -----------
+Service related API       .  Service Delivery  .   :
+                         .       Model          .  :
+                 ------------------    ------------------
+                |                  |  |                  |
+#############   |     Network      |  |     Network      |
+                |   Orchestrator   |  |   Orchestrator   |
+                |                  |  |                  |
+                .------------------    ------------------.
+PETRA as       .         :                       :        .
+Network API   .          : Network Configuration :         .
+            .            :        Model          :          .
+      ------------     ------------     ------------    ------------
+     |            |   |            |   |            |  |            |
+###  | Controller |   | Controller |   | Controller |  | Controller |
+     |            |   |            |   |            |  |            |
+      ------------     ------------     ------------    ------------
+         :              .       .                 :            :
+         :             .         .      Device    :            :
+         :            .           . Configuration :            :
+         :            .           .     Model     :            :
+     ---------     ---------   ---------     ---------      ---------
+    | Network |   | Network | | Network |   | Network |    | Network |
+    | Element |   | Element | | Element |   | Element |    | Element |
+     ---------     ---------   ---------     ---------      ---------
+        ]]></artwork>
+        </figure>
+      </t>
 
         <t>While considering recursive usage, the aspect of double-counting shall also be taken into consideration. Double counting refers to the fact of counting more than once the same energy consumed. Organizations using PETRA in a recursive manner need to take appropriate measures to ensure no double-counting occurs across recursive calls to the API.</t>
 
