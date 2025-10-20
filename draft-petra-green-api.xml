@@ -444,11 +444,7 @@ module ietf-petra {
         draft. Thanks to Fernando Sanz Garcia and Lori Jakab for their help and support on this
         work. </t>
 
-        <t>The contribution of Telefonica to this document has been
-   supported by the Smart Networks and Services Joint Undertaking (SNS
-   JU) under the European Union's Horizon Europe research and innovation
-   projects 6Green (Grant Agreement no. 101096925) and Exigence (Grant
-   Agreement no. 101139120).</t>
+        <t>The contribution of Telefonica to this document has been supported by the Smart Networks and Services Joint Undertaking (SNS JU) under the European Union's Horizon Europe research and innovation projects 6Green (Grant Agreement no. 101096925) and Exigence (Grant Agreement no. 101139120). The contribution of A. Gallego Sánchez to this document has been partially supported by the Smart Networks and Services Joint Undertaking (SNS JU) under the European Union's Horizon Europe research and innovation project Sustain6G (Grant Agreement no. 101191936).</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
