@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-19T01:56:41.163083+00:00",
+  "timestamp": "2025-10-21T01:48:02.798500+00:00",
   "repo": "arnatal/draft-petra-green-api",
   "labels": [
     {
@@ -65,7 +65,7 @@
       "labels": [],
       "body": "# What's Changed\r\nAdded two new use cases to expand PETRA's applicability in modern network environments:\r\n\r\n- Energy-Aware Service Routing: Extended SD-WAN section to show how PETRA enables network controllers (SD-WAN, 5G slice orchestrators, etc.) to optimize path selection based on energy consumption alongside traditional performance metrics.\r\n\r\n- SLA Negotiation for Energy-Efficient Services: New section demonstrating how operators can use PETRA metrics to offer environmentally-focused SLAs, allowing customers to select services based on renewable energy usage and sustainability targets.\r\n\r\n## Impact\r\nBroadens PETRA from basic energy monitoring to advanced routing decisions and business-level sustainability commitments\r\nAddresses growing enterprise demand for verifiable environmental compliance\r\nPositions PETRA as a comprehensive energy-aware networking solution",
       "createdAt": "2025-10-07T15:29:57Z",
-      "updatedAt": "2025-10-15T08:23:05Z",
+      "updatedAt": "2025-10-20T07:27:20Z",
       "baseRepository": "arnatal/draft-petra-green-api",
       "baseRefName": "main",
       "baseRefOid": "ddef8918ef40a30f29cd90c24984d8bead626fab",
