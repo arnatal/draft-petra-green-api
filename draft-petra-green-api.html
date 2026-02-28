@@ -1362,7 +1362,8 @@ module: ietf-petra
            +--ro (result)?
               +--:(success)
               |  +--ro success
-              |     +--ro watts-per-gigabit?   decimal64
+              |     +--ro watts-per-gigabit?      decimal64
+              |     +--ro data-source-accuracy?   identityref
               +--:(invalid-address)
                  +--ro invalid-address
 
@@ -1384,6 +1385,11 @@ module ietf-petra {
 
   import ietf-inet-types {
     prefix ietf-inet-types;
+  }
+
+  import ietf-power-and-energy {
+    prefix eo;
+    reference "draft-bcmj-green-power-and-energy-yang";
   }
 
   organization
@@ -1461,6 +1467,17 @@ module ietf-petra {
       units W/Gb;
       description
         "Watts consumed per Gigabit transmitted";
+    }
+    leaf data-source-accuracy {
+      type identityref { base eo:data-source-accuracy; }
+      description
+        "Accuracy classification of the watts-per-gigabit value,
+        using the GREEN data-source-accuracy hierarchy.
+        Implementations SHOULD populate this leaf to enable
+        consumers to assess reliability. For path-aggregated
+        values derived from multiple components, the RECOMMENDED
+        value is the LEAST accurate accuracy class among all
+        contributing energy objects.";
     }
   }
 
