@@ -304,9 +304,10 @@ module ietf-petra {
   }
 
   organization
-    "";
+    "IETF GREEN Working Group";
   contact
-    "";
+    "WG Web:   <https://datatracker.ietf.org/wg/green/>
+    WG List:  <mailto:green@ietf.org>";
   description
     "Initial YANG rendition of the PETRA Energy API, v1.0.1
 
@@ -385,7 +386,7 @@ module ietf-petra {
       "PETRA API top level container.";
     action query {
       description
-        "Query the network for energy consupmtion";
+        "Query the network for energy consumption";
       input {
         leaf src-ip {
           type ietf-inet-types:ip-address;
