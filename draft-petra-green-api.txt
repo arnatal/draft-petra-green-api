@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 23 April 2026                                        Telefonica
+Expires: 1 September 2025                                     Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                         20 October 2025
+                                                        28 February 2025
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2026.
+   This Internet-Draft will expire on 1 September 2025.
 
 Copyright Notice
 
@@ -237,9 +237,10 @@ Table of Contents
      }
 
      organization
-       "";
+       "IETF GREEN Working Group";
      contact
-       "";
+       "WG Web:   <https://datatracker.ietf.org/wg/green/>
+       WG List:  <mailto:green@ietf.org>";
      description
        "Initial YANG rendition of the PETRA Energy API, v1.0.1
 
@@ -318,7 +319,7 @@ Table of Contents
          "PETRA API top level container.";
        action query {
          description
-           "Query the network for energy consupmtion";
+           "Query the network for energy consumption";
          input {
            leaf src-ip {
              type ietf-inet-types:ip-address;
@@ -430,9 +431,9 @@ Table of Contents
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.
               P., Stephan, E., and Q. Wu, "Framework for Energy
               Efficiency Management", Work in Progress, Internet-Draft,
-              draft-belmq-green-framework-05, 6 October 2025,
+              draft-belmq-green-framework-10, 8 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-belmq-green-
-              framework-05>.
+              framework-10>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
