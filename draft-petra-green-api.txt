@@ -480,6 +480,13 @@ Table of Contents
 
 8.2.  Informative References
 
+   [I-D.bcmj-green-power-and-energy-yang]
+              Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
+              "Power and Energy YANG Module", Work in Progress,
+              Internet-Draft, draft-bcmj-green-power-and-energy-yang-02,
+              9 February 2026, <https://datatracker.ietf.org/doc/html/
+              draft-bcmj-green-power-and-energy-yang-02>.
+
 Appendix A.  Use Cases
 
    This section describes some use-cases where this specification might
