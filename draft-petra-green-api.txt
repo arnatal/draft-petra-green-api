@@ -213,7 +213,7 @@ Table of Contents
            +---w input
            |  +---w src-ip        ietf-inet-types:ip-address
            |  +---w dst-ip        ietf-inet-types:ip-address
-           |  +---w throughput    uint32
+           |  +---w throughput    decimal64
            +--ro output
               +--ro (result)?
                  +--:(success)
@@ -319,7 +319,7 @@ Table of Contents
          "PETRA API top level container.";
        action query {
          description
-           "Query the network for energy consumption";
+           "Query the network for energy consupmtion";
          input {
            leaf src-ip {
              type ietf-inet-types:ip-address;
@@ -334,7 +334,9 @@ Table of Contents
                "Destination IP address";
            }
            leaf throughput {
-             type uint32;
+             type decimal64 {
+               fraction-digits 3;
+             }
              units Gb/s;
              mandatory true;
              description
