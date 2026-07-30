@@ -14,22 +14,23 @@
        This document describes an API to query a network regarding its Energy Traffic Ratio for a
         given path. 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="energy, network, underlay" name="keyword">
 <meta content="draft-petra-green-api-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
-    Python 3.12.12
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.5.1
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.1
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.3.0
+    requests 2.33.1
+    wcwidth 0.8.2
 -->
 <link href="draft-petra-green-api.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -65,7 +66,6 @@
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -114,7 +114,6 @@
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -179,7 +178,6 @@
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -296,16 +294,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -325,10 +326,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -339,59 +340,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -429,26 +430,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -464,20 +464,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -513,9 +515,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -525,17 +527,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -585,25 +589,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -623,13 +619,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -640,18 +629,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -710,9 +697,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -802,23 +789,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -829,19 +820,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -862,54 +855,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -928,26 +921,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -963,12 +956,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1030,17 +1024,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1050,11 +1046,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Energy-API</td>
-<td class="right">March 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rodriguez-Natal, et al.</td>
-<td class="center">Expires 3 September 2026</td>
+<td class="center">Expires 31 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1063,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-petra-green-api-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-02" class="published">2 March 2026</time>
+<time datetime="2026-07-30" class="published">30 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-03">3 September 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-31">31 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1123,7 +1119,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1256,7 +1252,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-path-energy-traffic-ratio-a">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-path-energy-traffic-ratio-a" class="section-name selfRef">Path Energy Traffic Ratio API (PETRA)</a>
       </h2>
-<p id="section-3-1"> This documents describes an API to query a network about the Energy Traffic Ratio for a given path. It takes as input the source and destination of a path along with the traffic throughput between and returns energy information related to the traffic on the path. This is energy computed by the infrastructure that is dynamically part of the traffic path. The API is agnostic to the actual hops and underlaying infrastructure that enables a path, which might change transparently to the API. This document only describes the API, the computation of the energy information to return is out of the scope of this document. While the current version of this document assumes source and destination as IP addresses, future version of this document might consider other options as well.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1"> This documents describes an API to query a network about the Energy Traffic Ratio for a given path. It takes as input the source and destination of a path along with the traffic throughput between and returns energy information related to the traffic on the path. This is energy computed by the infrastructure that is dynamically part of the traffic path. The API is agnostic to the actual hops and underlaying infrastructure that enables a path, which might change transparently to the API. This document only describes the API, the computation of the energy information to return is out of the scope of this document. In the current version of this document, source and destination endpoints can be IP addresses, IP prefixes, or MAC addresses.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="energy">
 <section id="section-3.1">
         <h3 id="name-energy-information">
@@ -1268,18 +1264,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">Watts per Gigabit: How many Watts are consumed per Gigabit of traffic traversing the
             path.<a href="#section-3.1-2.1" class="pilcrow">¶</a>
-</li>
-        </ul>
-<p id="section-3.1-3">Some other parameters that could be considered as well as part of the energy information
-          include:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.1-4.1">Renewable Percentage: How much of the energy consumed comes from renewable energy
-            sources.<a href="#section-3.1-4.1" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.1-4.2">Carbon Intensity: How much carbon emissions are generated as a consequence of the
-              energy consumed.<a href="#section-3.1-4.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.1-4.3">...<a href="#section-3.1-4.3" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -1343,7 +1327,7 @@ Network API   .          : Network Configuration :         .
       <h2 id="name-yang-module">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
       </h2>
-<p id="section-4-1">This is a posible definition of PETRA as a module following the YANG specification <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This is a posible definition of PETRA as a module following the YANG specification <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>. The module uses the common YANG data types defined in <span>[<a href="#RFC9911" class="cite xref">RFC9911</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <section id="section-4.1">
         <h3 id="name-module-structure">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-module-structure" class="section-name selfRef">Module Structure</a>
@@ -1355,17 +1339,42 @@ module: ietf-petra
   +--rw energy
      +---x query
         +---w input
-        |  +---w src-ip        ietf-inet-types:ip-address
-        |  +---w dst-ip        ietf-inet-types:ip-address
-        |  +---w throughput    decimal64
+        |  +---w source
+        |  |  +---w (identifier)
+        |  |     +--:(ip-address)
+        |  |     |  +---w ip-address     ietf-inet-types:ip-address
+        |  |     +--:(ip-prefix)
+        |  |     |  +---w ip-prefix      ietf-inet-types:ip-prefix
+        |  |     +--:(mac-address)
+        |  |     |  +---w mac-address    ietf-yang-types:mac-address
+        |  |     +--:(sdp-id)
+        |  |        +---w sdp-id         -&gt; /ietf-nss:network-slice-services/slice-service/sdps/sdp/id
+        |  +---w destination
+        |  |  +---w (identifier)
+        |  |     +--:(ip-address)
+        |  |     |  +---w ip-address     ietf-inet-types:ip-address
+        |  |     +--:(ip-prefix)
+        |  |     |  +---w ip-prefix      ietf-inet-types:ip-prefix
+        |  |     +--:(mac-address)
+        |  |     |  +---w mac-address    ietf-yang-types:mac-address
+        |  |     +--:(sdp-id)
+        |  |        +---w sdp-id         -&gt; /ietf-nss:network-slice-services/slice-service/sdps/sdp/id
+        |  +---w (traffic-characterization)?
+        |     +--:(throughput)
+        |     |  +---w throughput?         decimal64
+        |     +--:(time-window-and-data-transmitted)
+        |        +---w time-window
+        |        |  +---w start-time    ietf-yang-types:date-and-time
+        |        |  +---w end-time      ietf-yang-types:date-and-time
+        |        +---w data-transmitted    decimal64
         +--ro output
            +--ro (result)?
               +--:(success)
               |  +--ro success
               |     +--ro watts-per-gigabit?      decimal64
               |     +--ro data-source-accuracy?   identityref
-              +--:(invalid-address)
-                 +--ro invalid-address
+              +--:(invalid-endpoint)
+                 +--ro invalid-endpoint!
 
 </pre><a href="#section-4.1-2" class="pilcrow">¶</a>
 </div>
@@ -1376,7 +1385,7 @@ module: ietf-petra
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-module-definition" class="section-name selfRef">Module Definition</a>
         </h3>
 <div class="breakable sourcecode" id="section-4.2-1">
-<pre>&lt;CODE BEGINS&gt; file "ietf-petra@2024-07-05.yang"
+<pre>&lt;CODE BEGINS&gt; file "ietf-petra@2026-07-06.yang"
 
 module ietf-petra {
   yang-version 1.1;
@@ -1385,6 +1394,20 @@ module ietf-petra {
 
   import ietf-inet-types {
     prefix ietf-inet-types;
+    reference "RFC 9911: Common YANG Data Types";
+  }
+
+  import ietf-yang-types {
+    prefix ietf-yang-types;
+    reference "RFC 9911: Common YANG Data Types";
+  }
+
+  import ietf-network-slice-service {
+    prefix ietf-nss;
+    revision-date 2026-05-27;
+    reference
+      "draft-ietf-teas-ietf-network-slice-nbi-yang-26:
+      A YANG Data Model for the RFC 9543 Network Slice Service.";
   }
 
   import ietf-power-and-energy {
@@ -1432,8 +1455,12 @@ module ietf-petra {
       --user 'admin:admin' \
       --data-raw '{
           'input' : {
-              'src-ip': '10.10.10.10',
-              'dst-ip': '10.20.20.20',
+              'source': {
+                  'ip-prefix': '10.10.10.0/24'
+              },
+              'destination': {
+                  'ip-prefix': '10.20.20.0/24'
+              },
               'throughput': '40'
           }
         }'
@@ -1450,11 +1477,62 @@ module ietf-petra {
     }
 */
 
-  revision 2025-05-12 {
+  revision 2026-07-06 {
     description
       "Initial YANG rendition of the PETRA Energy API, v1.0.1";
     reference
       "RFC XXXX: ...";
+  }
+
+  grouping endpoint-g {
+    description
+      "Identifies one endpoint of an energy-measurement path.";
+    choice identifier {
+      mandatory true;
+      description
+        "Endpoint represented as an IP address, IP prefix, MAC address,
+        or Service Demarcation Point (SDP) identifier.";
+      case ip-address {
+        leaf ip-address {
+          type ietf-inet-types:ip-address;
+          mandatory true;
+          description
+            "IPv4 or IPv6 address.";
+        }
+      }
+      case ip-prefix {
+        leaf ip-prefix {
+          type ietf-inet-types:ip-prefix;
+          mandatory true;
+          description
+            "IPv4 or IPv6 network prefix.";
+        }
+      }
+      case mac-address {
+        leaf mac-address {
+          type ietf-yang-types:mac-address;
+          mandatory true;
+          description
+            "IEEE 802 MAC address.";
+        }
+      }
+      case sdp-id {
+        leaf sdp-id {
+          type leafref {
+            path "/ietf-nss:network-slice-services"
+               + "/ietf-nss:slice-service"
+               + "/ietf-nss:sdps"
+               + "/ietf-nss:sdp"
+               + "/ietf-nss:id";
+            require-instance true;
+          }
+          mandatory true;
+          description
+            "Reference to a Service Demarcation Point (SDP) within the
+            scope of a Network Slice Controller (NSC).";
+        }
+      }
+    }
   }
 
   grouping energy-metrics-g {
@@ -1486,29 +1564,68 @@ module ietf-petra {
       "PETRA API top level container.";
     action query {
       description
-        "Query the network for energy consupmtion";
+        "Query the network for energy consumption";
       input {
-        leaf src-ip {
-          type ietf-inet-types:ip-address;
-          mandatory true;
-          description
-            "Source IP address";
+        must "throughput or (time-window/start-time and
+              time-window/end-time and data-transmitted)" {
+          error-message
+            "Provide either throughput or a time window with start
+            and end times together with data-transmitted.";
         }
-        leaf dst-ip {
-          type ietf-inet-types:ip-address;
-          mandatory true;
+        container source {
           description
-            "Destination IP address";
+            "Source endpoint.";
+          uses endpoint-g;
         }
-        leaf throughput {
-          type decimal64 {
-            fraction-digits 3;
+        container destination {
+          description
+            "Destination endpoint.";
+          uses endpoint-g;
+        }
+        choice traffic-characterization {
+          default throughput;
+          description
+            "Characterizes the traffic either by its throughput or by
+            the amount of data transmitted during a time window.";
+          case throughput {
+            leaf throughput {
+              type decimal64 {
+                fraction-digits 3;
+              }
+              units Gb/s;
+              description
+                "Throughput between source and destination
+                (in gigabits per second).";
+            }
           }
-          units Gb/s;
-          mandatory true;
-          description
-            "Throughput between source and destination
-            (in gigabits per second)";
+          case time-window-and-data-transmitted {
+            container time-window {
+              description
+                "Interval during which the data was transmitted.";
+              leaf start-time {
+                type ietf-yang-types:date-and-time;
+                mandatory true;
+                description
+                  "Start date and time of the interval.";
+              }
+              leaf end-time {
+                type ietf-yang-types:date-and-time;
+                mandatory true;
+                description
+                  "End date and time of the interval.";
+              }
+            }
+            leaf data-transmitted {
+              type decimal64 {
+                fraction-digits 3;
+              }
+              units Gb;
+              mandatory true;
+              description
+                "Amount of data transmitted between source and
+                destination during the time window (in gigabits).";
+            }
+          }
         }
       }
       output {
@@ -1520,9 +1637,11 @@ module ietf-petra {
               "Successful operation";
             uses energy-metrics-g;
           }
-          container invalid-address {
+          container invalid-endpoint {
+            presence
+              "Indicates that an invalid endpoint was supplied.";
             description
-              "Invalid source/destination IP address supplied";
+              "Invalid source or destination endpoint supplied.";
           }
         }
       }
@@ -1610,10 +1729,6 @@ module ietf-petra {
         <dd>
 <span class="refAuthor">Wasserman, M.</span>, <span class="refTitle">"Using the NETCONF Protocol over Secure Shell (SSH)"</span>, <span class="seriesInfo">RFC 6242</span>, <span class="seriesInfo">DOI 10.17487/RFC6242</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6242">https://www.rfc-editor.org/info/rfc6242</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6991">[RFC6991]</dt>
-        <dd>
-<span class="refAuthor">Schoenwaelder, J., Ed.</span>, <span class="refTitle">"Common YANG Data Types"</span>, <span class="seriesInfo">RFC 6991</span>, <span class="seriesInfo">DOI 10.17487/RFC6991</span>, <time datetime="2013-07" class="refDate">July 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6991">https://www.rfc-editor.org/info/rfc6991</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8040">[RFC8040]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8040">https://www.rfc-editor.org/info/rfc8040</a>&gt;</span>. </dd>
@@ -1627,8 +1742,12 @@ module ietf-petra {
 <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Liu, W.</span>, and <span class="refAuthor">A. Farrel</span>, <span class="refTitle">"Service Models Explained"</span>, <span class="seriesInfo">RFC 8309</span>, <span class="seriesInfo">DOI 10.17487/RFC8309</span>, <time datetime="2018-01" class="refDate">January 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8309">https://www.rfc-editor.org/info/rfc8309</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bjorklund, M.</span> and <span class="refAuthor">L. Berger, Ed.</span>, <span class="refTitle">"YANG Tree Diagrams"</span>, <span class="seriesInfo">BCP 215</span>, <span class="seriesInfo">RFC 8340</span>, <span class="seriesInfo">DOI 10.17487/RFC8340</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8340">https://www.rfc-editor.org/info/rfc8340</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9911">[RFC9911]</dt>
+      <dd>
+<span class="refAuthor">Schönwälder, J., Ed.</span>, <span class="refTitle">"Common YANG Data Types"</span>, <span class="seriesInfo">RFC 9911</span>, <span class="seriesInfo">DOI 10.17487/RFC9911</span>, <time datetime="2025-12" class="refDate">December 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9911">https://www.rfc-editor.org/info/rfc9911</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1639,7 +1758,7 @@ module ietf-petra {
 <dl class="references">
 <dt id="I-D.bcmj-green-power-and-energy-yang">[I-D.bcmj-green-power-and-energy-yang]</dt>
       <dd>
-<span class="refAuthor">Claise, B.</span>, <span class="refAuthor">Chen, G.</span>, <span class="refAuthor">Palmero, M. P.</span>, and <span class="refAuthor">J. Lindblad</span>, <span class="refTitle">"Power and Energy YANG Module"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bcmj-green-power-and-energy-yang-02</span>, <time datetime="2026-02-09" class="refDate">9 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bcmj-green-power-and-energy-yang-02">https://datatracker.ietf.org/doc/html/draft-bcmj-green-power-and-energy-yang-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Claise, B.</span>, <span class="refAuthor">Chen, G.</span>, <span class="refAuthor">Palmero, M. P.</span>, and <span class="refAuthor">J. Lindblad</span>, <span class="refTitle">"Power and Energy YANG Module"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bcmj-green-power-and-energy-yang-07</span>, <time datetime="2026-05-26" class="refDate">26 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bcmj-green-power-and-energy-yang-07">https://datatracker.ietf.org/doc/html/draft-bcmj-green-power-and-energy-yang-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

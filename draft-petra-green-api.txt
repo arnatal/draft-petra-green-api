@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 3 September 2026                                     Telefonica
+Expires: 31 January 2027                                      Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                            2 March 2026
+                                                            30 July 2026
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2026.
+   This Internet-Draft will expire on 31 January 2027.
 
 Copyright Notice
 
@@ -114,9 +114,9 @@ Table of Contents
    underlaying infrastructure that enables a path, which might change
    transparently to the API.  This document only describes the API, the
    computation of the energy information to return is out of the scope
-   of this document.  While the current version of this document assumes
-   source and destination as IP addresses, future version of this
-   document might consider other options as well.
+   of this document.  In the current version of this document, source
+   and destination endpoints can be IP addresses, IP prefixes, or MAC
+   addresses.
 
 3.1.  Energy Information
 
@@ -126,17 +126,6 @@ Table of Contents
 
    *  Watts per Gigabit: How many Watts are consumed per Gigabit of
       traffic traversing the path.
-
-   Some other parameters that could be considered as well as part of the
-   energy information include:
-
-   *  Renewable Percentage: How much of the energy consumed comes from
-      renewable energy sources.
-
-   *  Carbon Intensity: How much carbon emissions are generated as a
-      consequence of the energy consumed.
-
-   *  ...
 
 3.2.  Recursive Usage
 
@@ -200,34 +189,60 @@ Table of Contents
 4.  YANG Module
 
    This is a posible definition of PETRA as a module following the YANG
-   specification [RFC6020].
+   specification [RFC6020].  The module uses the common YANG data types
+   defined in [RFC9911].
 
 4.1.  Module Structure
 
    This section uses the graphical representation of data models defined
    in [RFC8340].
 
-   module: ietf-petra
-     +--rw energy
-        +---x query
-           +---w input
-           |  +---w src-ip        ietf-inet-types:ip-address
-           |  +---w dst-ip        ietf-inet-types:ip-address
-           |  +---w throughput    decimal64
-           +--ro output
-              +--ro (result)?
-                 +--:(success)
-                 |  +--ro success
-                 |     +--ro watts-per-gigabit?      decimal64
-                 |     +--ro data-source-accuracy?   identityref
-                 +--:(invalid-address)
-                    +--ro invalid-address
+module: ietf-petra
+  +--rw energy
+     +---x query
+        +---w input
+        |  +---w source
+        |  |  +---w (identifier)
+        |  |     +--:(ip-address)
+        |  |     |  +---w ip-address     ietf-inet-types:ip-address
+        |  |     +--:(ip-prefix)
+        |  |     |  +---w ip-prefix      ietf-inet-types:ip-prefix
+        |  |     +--:(mac-address)
+        |  |     |  +---w mac-address    ietf-yang-types:mac-address
+        |  |     +--:(sdp-id)
+        |  |        +---w sdp-id         -> /ietf-nss:network-slice-services/slice-service/sdps/sdp/id
+        |  +---w destination
+        |  |  +---w (identifier)
+        |  |     +--:(ip-address)
+        |  |     |  +---w ip-address     ietf-inet-types:ip-address
+        |  |     +--:(ip-prefix)
+        |  |     |  +---w ip-prefix      ietf-inet-types:ip-prefix
+        |  |     +--:(mac-address)
+        |  |     |  +---w mac-address    ietf-yang-types:mac-address
+        |  |     +--:(sdp-id)
+        |  |        +---w sdp-id         -> /ietf-nss:network-slice-services/slice-service/sdps/sdp/id
+        |  +---w (traffic-characterization)?
+        |     +--:(throughput)
+        |     |  +---w throughput?         decimal64
+        |     +--:(time-window-and-data-transmitted)
+        |        +---w time-window
+        |        |  +---w start-time    ietf-yang-types:date-and-time
+        |        |  +---w end-time      ietf-yang-types:date-and-time
+        |        +---w data-transmitted    decimal64
+        +--ro output
+           +--ro (result)?
+              +--:(success)
+              |  +--ro success
+              |     +--ro watts-per-gigabit?      decimal64
+              |     +--ro data-source-accuracy?   identityref
+              +--:(invalid-endpoint)
+                 +--ro invalid-endpoint!
 
 
 
 4.2.  Module Definition
 
-   <CODE BEGINS> file "ietf-petra@2024-07-05.yang"
+   <CODE BEGINS> file "ietf-petra@2026-07-06.yang"
    module ietf-petra {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-petra";
@@ -235,6 +250,20 @@ Table of Contents
 
      import ietf-inet-types {
        prefix ietf-inet-types;
+       reference "RFC 9911: Common YANG Data Types";
+     }
+
+     import ietf-yang-types {
+       prefix ietf-yang-types;
+       reference "RFC 9911: Common YANG Data Types";
+     }
+
+     import ietf-network-slice-service {
+       prefix ietf-nss;
+       revision-date 2026-05-27;
+       reference
+         "draft-ietf-teas-ietf-network-slice-nbi-yang-26:
+         A YANG Data Model for the RFC 9543 Network Slice Service.";
      }
 
      import ietf-power-and-energy {
@@ -282,8 +311,12 @@ Table of Contents
          --user 'admin:admin' \
          --data-raw '{
              'input' : {
-                 'src-ip': '10.10.10.10',
-                 'dst-ip': '10.20.20.20',
+                 'source': {
+                     'ip-prefix': '10.10.10.0/24'
+                 },
+                 'destination': {
+                     'ip-prefix': '10.20.20.0/24'
+                 },
                  'throughput': '40'
              }
            }'
@@ -300,11 +333,62 @@ Table of Contents
        }
    */
 
-     revision 2025-05-12 {
+     revision 2026-07-06 {
        description
          "Initial YANG rendition of the PETRA Energy API, v1.0.1";
        reference
          "RFC XXXX: ...";
+     }
+
+     grouping endpoint-g {
+       description
+         "Identifies one endpoint of an energy-measurement path.";
+       choice identifier {
+         mandatory true;
+         description
+           "Endpoint represented as an IP address, IP prefix, MAC address,
+           or Service Demarcation Point (SDP) identifier.";
+         case ip-address {
+           leaf ip-address {
+             type ietf-inet-types:ip-address;
+             mandatory true;
+             description
+               "IPv4 or IPv6 address.";
+           }
+         }
+         case ip-prefix {
+           leaf ip-prefix {
+             type ietf-inet-types:ip-prefix;
+             mandatory true;
+             description
+               "IPv4 or IPv6 network prefix.";
+           }
+         }
+         case mac-address {
+           leaf mac-address {
+             type ietf-yang-types:mac-address;
+             mandatory true;
+             description
+               "IEEE 802 MAC address.";
+           }
+         }
+         case sdp-id {
+           leaf sdp-id {
+             type leafref {
+               path "/ietf-nss:network-slice-services"
+                  + "/ietf-nss:slice-service"
+                  + "/ietf-nss:sdps"
+                  + "/ietf-nss:sdp"
+                  + "/ietf-nss:id";
+               require-instance true;
+             }
+             mandatory true;
+             description
+               "Reference to a Service Demarcation Point (SDP) within the
+               scope of a Network Slice Controller (NSC).";
+           }
+         }
+       }
      }
 
      grouping energy-metrics-g {
@@ -336,29 +420,68 @@ Table of Contents
          "PETRA API top level container.";
        action query {
          description
-           "Query the network for energy consupmtion";
+           "Query the network for energy consumption";
          input {
-           leaf src-ip {
-             type ietf-inet-types:ip-address;
-             mandatory true;
-             description
-               "Source IP address";
+           must "throughput or (time-window/start-time and
+                 time-window/end-time and data-transmitted)" {
+             error-message
+               "Provide either throughput or a time window with start
+               and end times together with data-transmitted.";
            }
-           leaf dst-ip {
-             type ietf-inet-types:ip-address;
-             mandatory true;
+           container source {
              description
-               "Destination IP address";
+               "Source endpoint.";
+             uses endpoint-g;
            }
-           leaf throughput {
-             type decimal64 {
-               fraction-digits 3;
+           container destination {
+             description
+               "Destination endpoint.";
+             uses endpoint-g;
+           }
+           choice traffic-characterization {
+             default throughput;
+             description
+               "Characterizes the traffic either by its throughput or by
+               the amount of data transmitted during a time window.";
+             case throughput {
+               leaf throughput {
+                 type decimal64 {
+                   fraction-digits 3;
+                 }
+                 units Gb/s;
+                 description
+                   "Throughput between source and destination
+                   (in gigabits per second).";
+               }
              }
-             units Gb/s;
-             mandatory true;
-             description
-               "Throughput between source and destination
-               (in gigabits per second)";
+             case time-window-and-data-transmitted {
+               container time-window {
+                 description
+                   "Interval during which the data was transmitted.";
+                 leaf start-time {
+                   type ietf-yang-types:date-and-time;
+                   mandatory true;
+                   description
+                     "Start date and time of the interval.";
+                 }
+                 leaf end-time {
+                   type ietf-yang-types:date-and-time;
+                   mandatory true;
+                   description
+                     "End date and time of the interval.";
+                 }
+               }
+               leaf data-transmitted {
+                 type decimal64 {
+                   fraction-digits 3;
+                 }
+                 units Gb;
+                 mandatory true;
+                 description
+                   "Amount of data transmitted between source and
+                   destination during the time window (in gigabits).";
+               }
+             }
            }
          }
          output {
@@ -370,9 +493,11 @@ Table of Contents
                  "Successful operation";
                uses energy-metrics-g;
              }
-             container invalid-address {
+             container invalid-endpoint {
+               presence
+                 "Indicates that an invalid endpoint was supplied.";
                description
-                 "Invalid source/destination IP address supplied";
+                 "Invalid source or destination endpoint supplied.";
              }
            }
          }
@@ -477,10 +602,6 @@ Table of Contents
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
               <https://www.rfc-editor.org/info/rfc6242>.
 
-   [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
-              RFC 6991, DOI 10.17487/RFC6991, July 2013,
-              <https://www.rfc-editor.org/info/rfc6991>.
-
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
@@ -497,14 +618,18 @@ Table of Contents
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
+   [RFC9911]  Schönwälder, J., Ed., "Common YANG Data Types", RFC 9911,
+              DOI 10.17487/RFC9911, December 2025,
+              <https://www.rfc-editor.org/info/rfc9911>.
+
 8.2.  Informative References
 
    [I-D.bcmj-green-power-and-energy-yang]
               Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
               "Power and Energy YANG Module", Work in Progress,
-              Internet-Draft, draft-bcmj-green-power-and-energy-yang-02,
-              9 February 2026, <https://datatracker.ietf.org/doc/html/
-              draft-bcmj-green-power-and-energy-yang-02>.
+              Internet-Draft, draft-bcmj-green-power-and-energy-yang-07,
+              26 May 2026, <https://datatracker.ietf.org/doc/html/draft-
+              bcmj-green-power-and-energy-yang-07>.
 
 Appendix A.  Use Cases
 
