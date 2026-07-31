@@ -311,6 +311,12 @@ module: ietf-petra
       </section>
 
       <section title="Module Definition">
+        <t>Validation of this module depends on the exact revision set of imported modules and
+          transitive dependencies in the validation environment. In particular, errors about
+          missing TE packet-type groupings (for example,
+          one-way-performance-metrics-gauge-packet and
+          two-way-performance-metrics-gauge-packet) originate in external module dependencies and
+          need to be addressed by aligning dependency revisions in the toolchain.</t>
         <t>
           <figure>
             <artwork><![CDATA[<CODE BEGINS> file "ietf-petra@2026-07-06.yang"
