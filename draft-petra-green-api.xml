@@ -325,7 +325,7 @@ module: ietf-petra
 module ietf-petra {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-petra";
-  prefix ietf-petra;
+  prefix petra;
 
   import ietf-inet-types {
     prefix ietf-inet-types;
@@ -339,7 +339,6 @@ module ietf-petra {
 
   import ietf-network-slice-service {
     prefix ietf-nss;
-    revision-date 2026-05-27;
     reference
       "draft-ietf-teas-ietf-network-slice-nbi-yang-26:
       A YANG Data Model for the RFC 9543 Network Slice Service.";
