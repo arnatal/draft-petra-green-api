@@ -19,6 +19,7 @@ An alternate method (rfc include) is described in the references. -->
   <!ENTITY RFC8040 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8040.xml">
   <!ENTITY RFC9907 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9907.xml">
   <!ENTITY I-D.belmq-green-framework PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.belmq-green-framework.xml">
+  <!ENTITY I-D.ietf-opsawg-rfc5706bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-rfc5706bis.xml">
   <!ENTITY I-D.ietf-teas-ietf-network-slice-nbi-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-teas-ietf-network-slice-nbi-yang.xml">
   <!ENTITY I-D.bcmj-green-power-and-energy-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.bcmj-green-power-and-energy-yang.xml">
 ]>
@@ -592,6 +593,25 @@ module ietf-petra {
     </section>
 
 
+    <section anchor="ops" title="Operational Considerations">
+      <t>This section highlights deployment and operations considerations for PETRA, following the
+        guidance in <xref target="I-D.ietf-opsawg-rfc5706bis" />.</t>
+
+      <ul>
+        <li>Measurement method impact: PETRA results can differ depending on whether values are
+          directly measured, estimated, or model-derived. Operators SHOULD document the
+          methodology used for each exposed metric.</li>
+        <li>Consumer intent differences: customer-facing use cases (for example, SD-WAN visibility
+          and SLA reporting) prioritize repeatability and explainability, while operator
+          optimization use cases may prioritize freshness and control-loop responsiveness.</li>
+        <li>Recursive aggregation and double counting: recursive or multi-domain use of PETRA can
+          count the same contribution more than once. Implementations SHOULD define aggregation
+          boundaries and controls that avoid double counting across segments and administrative
+          domains.</li>
+      </ul>
+    </section>
+
+
     <section anchor="sec" title="Security Considerations">
       <t>The YANG module defined in this document is specified and reviewed following the
         guidance in <xref target="RFC9907" />. PETRA query exchanges can reveal operationally
@@ -700,6 +720,8 @@ module ietf-petra {
     <references title="Informative References">
 
       &RFC9907;
+
+      &I-D.ietf-opsawg-rfc5706bis;
 
     </references>
 
