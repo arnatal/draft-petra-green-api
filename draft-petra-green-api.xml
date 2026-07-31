@@ -10,14 +10,17 @@ An alternate method (rfc include) is described in the references. -->
   <!ENTITY RFC3688 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
   <!ENTITY RFC8174 SYSTEM "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
   <!ENTITY RFC8340 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8340.xml">
-  <!ENTITY RFC6020 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
+  <!ENTITY RFC7950 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
   <!ENTITY RFC6241 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6241.xml">
   <!ENTITY RFC6242 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6242.xml">
   <!ENTITY RFC6830 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6830.xml">
   <!ENTITY RFC9911 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9911.xml">
   <!ENTITY RFC8309 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8309.xml">
   <!ENTITY RFC8040 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8040.xml">
+  <!ENTITY RFC9907 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9907.xml">
   <!ENTITY I-D.belmq-green-framework PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.belmq-green-framework.xml">
+  <!ENTITY I-D.ietf-opsawg-rfc5706bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-rfc5706bis.xml">
+  <!ENTITY I-D.ietf-teas-ietf-network-slice-nbi-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-teas-ietf-network-slice-nbi-yang.xml">
   <!ENTITY I-D.bcmj-green-power-and-energy-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.bcmj-green-power-and-energy-yang.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt'?>
@@ -251,8 +254,10 @@ Network API   .          : Network Configuration :         .
 
     <section anchor="sec-yang" title="YANG Module">
       <t>This is a posible definition of PETRA as a module following the YANG specification <xref
-        target="RFC6020" />. The module uses the common YANG data types defined in <xref
-        target="RFC9911" />.</t>
+        target="RFC7950" />. The module uses the common YANG data types defined in <xref
+        target="RFC9911" />, and imports the network slice model from <xref
+        target="I-D.ietf-teas-ietf-network-slice-nbi-yang" /> and the power and energy model from
+        <xref target="I-D.bcmj-green-power-and-energy-yang" />.</t>
 
       <section title="Module Structure">
         <t>This section uses the graphical representation of data models defined in <xref
@@ -308,13 +313,19 @@ module: ietf-petra
       </section>
 
       <section title="Module Definition">
+        <t>Validation of this module depends on the exact revision set of imported modules and
+          transitive dependencies in the validation environment. In particular, errors about
+          missing TE packet-type groupings (for example,
+          one-way-performance-metrics-gauge-packet and
+          two-way-performance-metrics-gauge-packet) originate in external module dependencies and
+          need to be addressed by aligning dependency revisions in the toolchain.</t>
         <t>
           <figure>
             <artwork><![CDATA[<CODE BEGINS> file "ietf-petra@2026-07-06.yang"
 module ietf-petra {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-petra";
-  prefix ietf-petra;
+  prefix petra;
 
   import ietf-inet-types {
     prefix ietf-inet-types;
@@ -328,7 +339,6 @@ module ietf-petra {
 
   import ietf-network-slice-service {
     prefix ietf-nss;
-    revision-date 2026-05-27;
     reference
       "draft-ietf-teas-ietf-network-slice-nbi-yang-26:
       A YANG Data Model for the RFC 9543 Network Slice Service.";
@@ -336,7 +346,9 @@ module ietf-petra {
 
   import ietf-power-and-energy {
     prefix eo;
-    reference "draft-bcmj-green-power-and-energy-yang";
+    reference
+      "draft-bcmj-green-power-and-energy-yang:
+      Power and Energy YANG Module.";
   }
 
   organization
@@ -374,7 +386,7 @@ module ietf-petra {
     access it like something this over RESTCONF:
 
     $ curl --location --request POST \
-      'https://localhost:8008/restconf/operations/energy/query' \
+      'https://localhost:8008/restconf/operations/ietf-petra:energy/query' \
       --header 'Content-Type: application/yang-data+json' \
       --user 'admin:admin' \
       --data-raw '{
@@ -408,7 +420,7 @@ module ietf-petra {
       "RFC XXXX: ...";
   }
 
-  grouping endpoint-g {
+  grouping endpoint {
     description
       "Identifies one endpoint of an energy-measurement path.";
     choice identifier {
@@ -459,7 +471,7 @@ module ietf-petra {
     }
   }
 
-  grouping energy-metrics-g {
+  grouping energy-metrics {
     description
       "Grouping for query result metrics.";
     leaf watts-per-gigabit {
@@ -499,12 +511,12 @@ module ietf-petra {
         container source {
           description
             "Source endpoint.";
-          uses endpoint-g;
+          uses endpoint;
         }
         container destination {
           description
             "Destination endpoint.";
-          uses endpoint-g;
+          uses endpoint;
         }
         choice traffic-characterization {
           default throughput;
@@ -559,7 +571,7 @@ module ietf-petra {
           container success {
             description
               "Successful operation";
-            uses energy-metrics-g;
+            uses energy-metrics;
           }
           container invalid-endpoint {
             presence
@@ -580,8 +592,51 @@ module ietf-petra {
     </section>
 
 
+    <section anchor="ops" title="Operational Considerations">
+      <t>This section highlights deployment and operations considerations for PETRA, following the
+        guidance in <xref target="I-D.ietf-opsawg-rfc5706bis" />.</t>
+
+      <ul>
+        <li>Measurement method impact: PETRA results can differ depending on whether values are
+          directly measured, estimated, or model-derived. Operators SHOULD document the
+          methodology used for each exposed metric.</li>
+        <li>Consumer intent differences: customer-facing use cases (for example, SD-WAN visibility
+          and SLA reporting) prioritize repeatability and explainability, while operator
+          optimization use cases may prioritize freshness and control-loop responsiveness.</li>
+        <li>Recursive aggregation and double counting: recursive or multi-domain use of PETRA can
+          count the same contribution more than once. Implementations SHOULD define aggregation
+          boundaries and controls that avoid double counting across segments and administrative
+          domains.</li>
+      </ul>
+    </section>
+
+
     <section anchor="sec" title="Security Considerations">
-      <t>In order to mitigate security risks, the PETRA API should implement the necessary mechanisms for authentication, secure data transfer and privacy preservation. On the other hand, in order to prevent denial of service attacks, new subsequent similar requests could be silently ignored during periods of time, or even requests from the same client could be filtered to prevent system (i.e., controller or orchestrator) affection.</t>
+      <t>The YANG module defined in this document is specified and reviewed following the
+        guidance in <xref target="RFC9907" />. PETRA query exchanges can reveal operationally
+        sensitive information related to endpoints, traffic, and energy behavior, and therefore
+        require careful deployment controls.</t>
+
+      <t>When this API is exposed over NETCONF <xref target="RFC6241" /> or RESTCONF <xref
+          target="RFC8040" />, implementations inherit those protocols' security properties and
+        deployment requirements.</t>
+
+      <t>Implementations and deployments SHOULD consider at least the following:</t>
+
+      <ul>
+        <li>Secure transport: confidentiality and integrity protection for PETRA exchanges MUST be
+          provided by the underlying management protocol and transport.</li>
+        <li>Authentication and authorization: servers MUST authenticate clients and MUST enforce
+          authorization before processing requests.</li>
+        <li>Input validation: implementations SHOULD validate endpoint identifiers and traffic
+          characterization values to prevent invalid requests and abusive workloads.</li>
+        <li>Information disclosure control: returned energy metrics can expose sensitive operational
+          behavior and SHOULD be filtered according to policy and client privileges.</li>
+        <li>Denial-of-service resilience: implementations SHOULD apply protections such as
+          rate-limiting, quotas, and bounded processing to protect control-plane resources.</li>
+        <li>Privacy: where measurements can be correlated to customer behavior, operators SHOULD
+          minimize retention and protect logs and telemetry generated by queries.</li>
+      </ul>
 
     </section>
 
@@ -613,13 +668,14 @@ module ietf-petra {
       <t>--------------------------------------------------------------------</t>
 
       <t>This document registers the following YANG modules in the "YANG Module Names" registry <xref
-          target="RFC6020" />:</t>
+          target="RFC7950" />:</t>
 
       <t>--------------------------------------------------------------------</t>
       <t>Name: ietf-petra</t>
       <t>Namespace: urn:ietf:params:xml:ns:yang:ietf-petra</t>
       <t>Prefix: petra</t>
       <t>Reference: RFC XXX</t>
+      <t>Maintained by IANA? N</t>
       <t>--------------------------------------------------------------------</t>
 
 
@@ -637,7 +693,7 @@ module ietf-petra {
 
       &RFC3688;
 
-      &RFC6020;
+      &RFC7950;
 
       &RFC6241;
 
@@ -655,11 +711,17 @@ module ietf-petra {
 
       &I-D.belmq-green-framework;
 
+      &I-D.ietf-teas-ietf-network-slice-nbi-yang;
+
+      &I-D.bcmj-green-power-and-energy-yang;
+
     </references>
 
     <references title="Informative References">
 
-      &I-D.bcmj-green-power-and-energy-yang;
+      &RFC9907;
+
+      &I-D.ietf-opsawg-rfc5706bis;
 
     </references>
 
@@ -684,7 +746,7 @@ module ietf-petra {
       </section>
 
       <section anchor="SLA" title="SLA Negotiation for Energy-Efficient Services">
-        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption, renewable energy percentage, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees (e.g. latency), but also on their environmental footprint (or a combination of both). For example requesting that at least 60% of traffic be carried over renewable-powered infrastructure. Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.</t>
+        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption and watts-per-gigabit, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees (e.g. latency), but also on their environmental footprint (or a combination of both). Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.</t>
       </section>
 
     </section>
