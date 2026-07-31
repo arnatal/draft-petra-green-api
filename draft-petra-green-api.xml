@@ -10,7 +10,7 @@ An alternate method (rfc include) is described in the references. -->
   <!ENTITY RFC3688 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
   <!ENTITY RFC8174 SYSTEM "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
   <!ENTITY RFC8340 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8340.xml">
-  <!ENTITY RFC6020 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
+  <!ENTITY RFC7950 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
   <!ENTITY RFC6241 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6241.xml">
   <!ENTITY RFC6242 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6242.xml">
   <!ENTITY RFC6830 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6830.xml">
@@ -251,7 +251,7 @@ Network API   .          : Network Configuration :         .
 
     <section anchor="sec-yang" title="YANG Module">
       <t>This is a posible definition of PETRA as a module following the YANG specification <xref
-        target="RFC6020" />. The module uses the common YANG data types defined in <xref
+        target="RFC7950" />. The module uses the common YANG data types defined in <xref
         target="RFC9911" />.</t>
 
       <section title="Module Structure">
@@ -613,7 +613,7 @@ module ietf-petra {
       <t>--------------------------------------------------------------------</t>
 
       <t>This document registers the following YANG modules in the "YANG Module Names" registry <xref
-          target="RFC6020" />:</t>
+          target="RFC7950" />:</t>
 
       <t>--------------------------------------------------------------------</t>
       <t>Name: ietf-petra</t>
@@ -637,7 +637,7 @@ module ietf-petra {
 
       &RFC3688;
 
-      &RFC6020;
+      &RFC7950;
 
       &RFC6241;
 
