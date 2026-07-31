@@ -419,7 +419,7 @@ module ietf-petra {
       "RFC XXXX: ...";
   }
 
-  grouping endpoint-g {
+  grouping endpoint {
     description
       "Identifies one endpoint of an energy-measurement path.";
     choice identifier {
@@ -470,7 +470,7 @@ module ietf-petra {
     }
   }
 
-  grouping energy-metrics-g {
+  grouping energy-metrics {
     description
       "Grouping for query result metrics.";
     leaf watts-per-gigabit {
@@ -510,12 +510,12 @@ module ietf-petra {
         container source {
           description
             "Source endpoint.";
-          uses endpoint-g;
+          uses endpoint;
         }
         container destination {
           description
             "Destination endpoint.";
-          uses endpoint-g;
+          uses endpoint;
         }
         choice traffic-characterization {
           default throughput;
@@ -570,7 +570,7 @@ module ietf-petra {
           container success {
             description
               "Successful operation";
-            uses energy-metrics-g;
+            uses energy-metrics;
           }
           container invalid-endpoint {
             presence
