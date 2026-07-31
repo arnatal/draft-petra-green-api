@@ -676,6 +676,7 @@ module ietf-petra {
       <t>Namespace: urn:ietf:params:xml:ns:yang:ietf-petra</t>
       <t>Prefix: petra</t>
       <t>Reference: RFC XXX</t>
+      <t>Maintained by IANA? N</t>
       <t>--------------------------------------------------------------------</t>
 
 
