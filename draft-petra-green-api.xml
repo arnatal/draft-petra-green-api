@@ -339,7 +339,9 @@ module ietf-petra {
 
   import ietf-power-and-energy {
     prefix eo;
-    reference "draft-bcmj-green-power-and-energy-yang";
+    reference
+      "draft-bcmj-green-power-and-energy-yang:
+      Power and Energy YANG Module.";
   }
 
   organization
