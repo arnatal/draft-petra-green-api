@@ -18,6 +18,7 @@ An alternate method (rfc include) is described in the references. -->
   <!ENTITY RFC8309 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8309.xml">
   <!ENTITY RFC8040 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8040.xml">
   <!ENTITY I-D.belmq-green-framework PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.belmq-green-framework.xml">
+  <!ENTITY I-D.ietf-teas-ietf-network-slice-nbi-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-teas-ietf-network-slice-nbi-yang.xml">
   <!ENTITY I-D.bcmj-green-power-and-energy-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.bcmj-green-power-and-energy-yang.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt'?>
@@ -252,7 +253,9 @@ Network API   .          : Network Configuration :         .
     <section anchor="sec-yang" title="YANG Module">
       <t>This is a posible definition of PETRA as a module following the YANG specification <xref
         target="RFC7950" />. The module uses the common YANG data types defined in <xref
-        target="RFC9911" />.</t>
+        target="RFC9911" />, and imports the network slice model from <xref
+        target="I-D.ietf-teas-ietf-network-slice-nbi-yang" /> and the power and energy model from
+        <xref target="I-D.bcmj-green-power-and-energy-yang" />.</t>
 
       <section title="Module Structure">
         <t>This section uses the graphical representation of data models defined in <xref
@@ -655,11 +658,13 @@ module ietf-petra {
 
       &I-D.belmq-green-framework;
 
+      &I-D.ietf-teas-ietf-network-slice-nbi-yang;
+
+      &I-D.bcmj-green-power-and-energy-yang;
+
     </references>
 
     <references title="Informative References">
-
-      &I-D.bcmj-green-power-and-energy-yang;
 
     </references>
 
