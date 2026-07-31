@@ -379,7 +379,7 @@ module ietf-petra {
     access it like something this over RESTCONF:
 
     $ curl --location --request POST \
-      'https://localhost:8008/restconf/operations/energy/query' \
+      'https://localhost:8008/restconf/operations/ietf-petra:energy/query' \
       --header 'Content-Type: application/yang-data+json' \
       --user 'admin:admin' \
       --data-raw '{
