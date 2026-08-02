@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-30T02:40:29.829370+00:00",
+  "timestamp": "2026-08-02T03:21:19.638023+00:00",
   "repo": "arnatal/draft-petra-green-api",
   "labels": [
     {
@@ -87,6 +87,37 @@
           "updatedAt": "2025-10-15T08:22:51Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOP7lDec748Bpf",
+      "title": "Review/petra ietf 04 per fixes",
+      "url": "https://github.com/arnatal/draft-petra-green-api/pull/2",
+      "state": "OPEN",
+      "author": "galledohm",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "galledohm"
+      ],
+      "labels": [
+        "bug",
+        "enhancement"
+      ],
+      "body": "Addressed Per's comments from GREEN mail-list.\r\n\r\nThe PR is structured so that each commit contains one fix.",
+      "createdAt": "2026-07-31T09:10:16Z",
+      "updatedAt": "2026-07-31T09:22:54Z",
+      "baseRepository": "arnatal/draft-petra-green-api",
+      "baseRefName": "main",
+      "baseRefOid": "78c5756c34071c75153d89fe327d7c30a7104959",
+      "headRepository": "arnatal/draft-petra-green-api",
+      "headRefName": "review/petra-ietf-04-per-fixes",
+      "headRefOid": "86e109c71ac8f8aa4cc2cc21bc7479dd3e9bb93a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
