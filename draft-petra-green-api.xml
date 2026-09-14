@@ -22,6 +22,7 @@ An alternate method (rfc include) is described in the references. -->
   <!ENTITY I-D.ietf-opsawg-rfc5706bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-rfc5706bis.xml">
   <!ENTITY I-D.ietf-teas-ietf-network-slice-nbi-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-teas-ietf-network-slice-nbi-yang.xml">
   <!ENTITY I-D.bcmj-green-power-and-energy-yang PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.bcmj-green-power-and-energy-yang.xml">
+  <!ENTITY I-D.madpr-green-provenance PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.madpr-green-provenance.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt'?>
 <!-- used by XSLT processors -->
@@ -600,6 +601,10 @@ module ietf-petra {
         <li>Measurement method impact: PETRA results can differ depending on whether values are
           directly measured, estimated, or model-derived. Operators SHOULD document the
           methodology used for each exposed metric.</li>
+        <li>Provenance: PETRA does not require provenance support. Deployments that require
+          provenance assurance for the Energy Object telemetry used to derive a PETRA result can use
+          the per-Energy-Object verification state defined in <xref
+            target="I-D.madpr-green-provenance" />.</li>
         <li>Consumer intent differences: customer-facing use cases (for example, SD-WAN visibility
           and SLA reporting) prioritize repeatability and explainability, while operator
           optimization use cases may prioritize freshness and control-loop responsiveness.</li>
@@ -723,6 +728,8 @@ module ietf-petra {
 
       &I-D.ietf-opsawg-rfc5706bis;
 
+      &I-D.madpr-green-provenance;
+
     </references>
 
     <section anchor="use-cases" title="Use Cases">
@@ -746,7 +753,7 @@ module ietf-petra {
       </section>
 
       <section anchor="SLA" title="SLA Negotiation for Energy-Efficient Services">
-        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption and watts-per-gigabit, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees (e.g. latency), but also on their environmental footprint (or a combination of both). Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA as the trusted source of verifiable energy data.</t>
+        <t>Another use case for PETRA could the negotiation of Service Level Agreements (SLAs) between operators and enterprise customers. By exposing PETRA-derived metrics such as energy consumption and watts-per-gigabit, providers can offer differentiated SLAs that explicitly include environmental targets. This enables customers to select network services not only based on performance guarantees (e.g. latency), but also on their environmental footprint (or a combination of both). Such SLAs empower customers to align their digital services with corporate energy-efficient and sustainability goals and reporting requirements, while operators can use PETRA to provide the energy metrics used for such services.</t>
       </section>
 
     </section>
