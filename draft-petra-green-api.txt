@@ -64,12 +64,13 @@ Table of Contents
    4.  YANG Module
      4.1.  Module Structure
      4.2.  Module Definition
-   5.  Security Considerations
-   6.  Acknowledgments
-   7.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   5.  Operational Considerations
+   6.  Security Considerations
+   7.  Acknowledgments
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Use Cases
      A.1.  SD-WAN
      A.2.  Multilayer Energy Management
@@ -189,8 +190,10 @@ Table of Contents
 4.  YANG Module
 
    This is a posible definition of PETRA as a module following the YANG
-   specification [RFC6020].  The module uses the common YANG data types
-   defined in [RFC9911].
+   specification [RFC7950].  The module uses the common YANG data types
+   defined in [RFC9911], and imports the network slice model from
+   [I-D.ietf-teas-ietf-network-slice-nbi-yang] and the power and energy
+   model from [I-D.bcmj-green-power-and-energy-yang].
 
 4.1.  Module Structure
 
@@ -246,7 +249,7 @@ module: ietf-petra
    module ietf-petra {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-petra";
-     prefix ietf-petra;
+     prefix petra;
 
      import ietf-inet-types {
        prefix ietf-inet-types;
@@ -268,7 +271,9 @@ module: ietf-petra
 
      import ietf-power-and-energy {
        prefix eo;
-       reference "draft-bcmj-green-power-and-energy-yang";
+       reference
+         "draft-bcmj-green-power-and-energy-yang:
+         Power and Energy YANG Module.";
      }
 
      organization
@@ -306,7 +311,7 @@ module: ietf-petra
        access it like something this over RESTCONF:
 
        $ curl --location --request POST \
-         'https://localhost:8008/restconf/operations/energy/query' \
+         'https://localhost:8008/restconf/operations/ietf-petra:energy/query' \
          --header 'Content-Type: application/yang-data+json' \
          --user 'admin:admin' \
          --data-raw '{
@@ -340,7 +345,7 @@ module: ietf-petra
          "RFC XXXX: ...";
      }
 
-     grouping endpoint-g {
+     grouping endpoint {
        description
          "Identifies one endpoint of an energy-measurement path.";
        choice identifier {
@@ -391,7 +396,7 @@ module: ietf-petra
        }
      }
 
-     grouping energy-metrics-g {
+     grouping energy-metrics {
        description
          "Grouping for query result metrics.";
        leaf watts-per-gigabit {
@@ -431,12 +436,12 @@ module: ietf-petra
            container source {
              description
                "Source endpoint.";
-             uses endpoint-g;
+             uses endpoint;
            }
            container destination {
              description
                "Destination endpoint.";
-             uses endpoint-g;
+             uses endpoint;
            }
            choice traffic-characterization {
              default throughput;
@@ -491,7 +496,7 @@ module: ietf-petra
              container success {
                description
                  "Successful operation";
-               uses energy-metrics-g;
+               uses energy-metrics;
              }
              container invalid-endpoint {
                presence
@@ -506,17 +511,89 @@ module: ietf-petra
    }
    <CODE ENDS>
 
-5.  Security Considerations
+5.  Operational Considerations
 
-   In order to mitigate security risks, the PETRA API should implement
-   the necessary mechanisms for authentication, secure data transfer and
-   privacy preservation.  On the other hand, in order to prevent denial
-   of service attacks, new subsequent similar requests could be silently
-   ignored during periods of time, or even requests from the same client
-   could be filtered to prevent system (i.e., controller or
-   orchestrator) affection.
+   This section highlights deployment and operations considerations for
+   PETRA, following the guidance in [I-D.ietf-opsawg-rfc5706bis].
 
-6.  Acknowledgments
+   *  Measurement method impact: PETRA results can differ depending on
+      whether values are directly measured, estimated, or model-derived.
+      Operators SHOULD document the methodology used for each exposed
+      metric.
+
+   *  Provenance: PETRA does not require provenance support.
+      Deployments that require provenance assurance for the Energy
+      Object telemetry used to derive a PETRA result can use the per-
+      Energy-Object verification state defined in
+      [I-D.madpr-green-provenance].
+
+   *  Consumer intent differences: customer-facing use cases (for
+      example, SD-WAN visibility and SLA reporting) prioritize
+      repeatability and explainability, while operator optimization use
+      cases may prioritize freshness and control-loop responsiveness.
+
+   *  Recursive aggregation and double counting: recursive or multi-
+      domain use of PETRA can count the same contribution more than
+      once.  Implementations SHOULD define aggregation boundaries and
+      controls that avoid double counting across segments and
+      administrative domains.
+
+6.  Security Considerations
+
+   The YANG module defined in this document is specified and reviewed
+   following the guidance in [RFC9907].  PETRA query exchanges can
+   reveal operationally sensitive information related to endpoints,
+   traffic, and energy behavior, and therefore require careful
+   deployment controls.
+
+   When this API is exposed over NETCONF [RFC6241] or RESTCONF
+   [RFC8040], implementations inherit those protocols' security
+   properties and deployment requirements.
+
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available protocol
+   operations and content.
+
+   The module defines no particularly sensitive readable or writable
+   datastore nodes.  The "energy" container serves only as the parent of
+   the "energy/query" action.
+
+   Implementations and deployments SHOULD consider at least the
+   following:
+
+   *  Secure transport: mutual authentication, confidentiality, and
+      integrity protection for PETRA exchanges MUST be provided by the
+      underlying management protocol and transport.
+
+   *  Authentication and authorization: servers MUST authenticate
+      clients and MUST enforce authorization before processing requests.
+      In particular, invocation of the "energy/query" action MUST be
+      limited to authorized users.
+
+   *  Input validation: implementations SHOULD validate endpoint
+      identifiers and traffic characterization values to prevent invalid
+      requests and abusive workloads.
+
+   *  Information disclosure control: an "energy/query" request contains
+      source and destination identifiers plus throughput or time-and-
+      volume traffic information.  A response can expose energy metrics,
+      their accuracy, or whether the supplied endpoints are valid.
+      Unauthorized invocation or observation can therefore disclose
+      customer traffic and operational energy information or enable
+      endpoint enumeration.  Queries SHOULD be filtered according to
+      policy and client privileges.
+
+   *  Denial-of-service resilience: repeated or computationally
+      expensive invocations of "energy/query" can consume controller or
+      orchestrator resources.  Implementations SHOULD apply rate
+      limiting, quotas, and/or bounded processing.
+
+   *  Privacy: where measurements can be correlated to customer
+      behavior, operators SHOULD minimize retention and protect logs and
+      telemetry generated by queries.
+
+7.  Acknowledgments
 
    Kudos to Elis Lulja for his help with the OpenAPI specification in
    early versions of this draft.  Thanks to Fernando Sanz Garcia and
@@ -532,44 +609,41 @@ module: ietf-petra
    Horizon Europe research and innovation project Sustain6G (Grant
    Agreement no. 101191936).
 
-7.  IANA Considerations
+8.  IANA Considerations
 
-   The IANA is requested to as assign a new namespace URI from the IETF
-   XML registry.
-
-   This document registers the following namesace URIs in the IETF XML
-   registry [RFC3688]:
-
-
-   --------------------------------------------------------------------
+   IANA is requested to register the following URI in the "ns" registry
+   within the "IETF XML Registry" group [RFC3688]:
 
    URI: urn:ietf:params:xml:ns:yang:ietf-petra
 
-   Registrant Contact: The IESG.
+   Registrant Contact: The IESG
 
-   XML: N/A, the requested URI is an XML namespace.
+   XML: N/A; the requested URI is an XML namespace.
 
-   --------------------------------------------------------------------
-
-   This document registers the following YANG modules in the "YANG
-   Module Names" registry [RFC6020]:
-
-   --------------------------------------------------------------------
+   IANA is requested to register the following YANG module in the "YANG
+   Module Names" registry [RFC7950] within the "YANG Parameters"
+   registry group:
 
    Name: ietf-petra
+
+   Maintained by IANA?  N
 
    Namespace: urn:ietf:params:xml:ns:yang:ietf-petra
 
    Prefix: petra
 
-   Reference: RFC XXX
+   Reference: RFC XXXX
 
-   --------------------------------------------------------------------
+9.  References
 
+9.1.  Normative References
 
-8.  References
-
-8.1.  Normative References
+   [I-D.bcmj-green-power-and-energy-yang]
+              Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
+              "Power and Energy YANG Module", Work in Progress,
+              Internet-Draft, draft-bcmj-green-power-and-energy-yang-07,
+              26 May 2026, <https://datatracker.ietf.org/doc/html/draft-
+              bcmj-green-power-and-energy-yang-07>.
 
    [I-D.belmq-green-framework]
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.
@@ -578,6 +652,14 @@ module: ietf-petra
               draft-belmq-green-framework-10, 8 February 2026,
               <https://datatracker.ietf.org/doc/html/draft-belmq-green-
               framework-10>.
+
+   [I-D.ietf-teas-ietf-network-slice-nbi-yang]
+              Wu, B., Dhody, D., Rokui, R., Saad, T., and J. Mullooly,
+              "A YANG Data Model for the RFC 9543 Network Slice
+              Service", Work in Progress, Internet-Draft, draft-ietf-
+              teas-ietf-network-slice-nbi-yang-26, 26 May 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
+              ietf-network-slice-nbi-yang-26>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -588,11 +670,6 @@ module: ietf-petra
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
 
-   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
-              the Network Configuration Protocol (NETCONF)", RFC 6020,
-              DOI 10.17487/RFC6020, October 2010,
-              <https://www.rfc-editor.org/info/rfc6020>.
-
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -601,6 +678,10 @@ module: ietf-petra
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
               <https://www.rfc-editor.org/info/rfc6242>.
+
+   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
+              RFC 7950, DOI 10.17487/RFC7950, August 2016,
+              <https://www.rfc-editor.org/info/rfc7950>.
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
@@ -618,18 +699,37 @@ module: ietf-petra
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/info/rfc8341>.
+
    [RFC9911]  Schönwälder, J., Ed., "Common YANG Data Types", RFC 9911,
               DOI 10.17487/RFC9911, December 2025,
               <https://www.rfc-editor.org/info/rfc9911>.
 
-8.2.  Informative References
+9.2.  Informative References
 
-   [I-D.bcmj-green-power-and-energy-yang]
-              Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
-              "Power and Energy YANG Module", Work in Progress,
-              Internet-Draft, draft-bcmj-green-power-and-energy-yang-07,
-              26 May 2026, <https://datatracker.ietf.org/doc/html/draft-
-              bcmj-green-power-and-energy-yang-07>.
+   [I-D.ietf-opsawg-rfc5706bis]
+              Claise, B., Clarke, J., Farrel, A., Barguil, S.,
+              Pignataro, C., and R. Chen, "Guidelines for Considering
+              Operations and Management in IETF Specifications", Work in
+              Progress, Internet-Draft, draft-ietf-opsawg-rfc5706bis-08,
+              24 September 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-opsawg-rfc5706bis-08>.
+
+   [I-D.madpr-green-provenance]
+              Palmero, M. P., Lopez, D., Pérez, A. M., Andersson, P.,
+              and R. Osterberg, "Provenance Traceability Augmentation
+              for the GREEN Power and Energy YANG Module", Work in
+              Progress, Internet-Draft, draft-madpr-green-provenance-00,
+              5 July 2026, <https://datatracker.ietf.org/doc/html/draft-
+              madpr-green-provenance-00>.
+
+   [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
+              for Authors and Reviewers of Documents Containing YANG
+              Data Models", BCP 216, RFC 9907, DOI 10.17487/RFC9907,
+              March 2026, <https://www.rfc-editor.org/info/rfc9907>.
 
 Appendix A.  Use Cases
 
@@ -695,17 +795,15 @@ A.3.  SLA Negotiation for Energy-Efficient Services
 
    Another use case for PETRA could the negotiation of Service Level
    Agreements (SLAs) between operators and enterprise customers.  By
-   exposing PETRA-derived metrics such as energy consumption, renewable
-   energy percentage, providers can offer differentiated SLAs that
-   explicitly include environmental targets.  This enables customers to
-   select network services not only based on performance guarantees
-   (e.g. latency), but also on their environmental footprint (or a
-   combination of both).  For example requesting that at least 60% of
-   traffic be carried over renewable-powered infrastructure.  Such SLAs
+   exposing PETRA-derived metrics such as watts-per-gigabit, providers
+   can offer differentiated SLAs that explicitly include environmental
+   targets.  This enables customers to select network services not only
+   based on performance guarantees (e.g. latency), but also on their
+   environmental footprint (or a combination of both).  Such SLAs
    empower customers to align their digital services with corporate
    energy-efficient and sustainability goals and reporting requirements,
-   while operators can use PETRA as the trusted source of verifiable
-   energy data.
+   while operators can use PETRA to provide the energy metrics used for
+   such services.
 
 Appendix B.  Requirements for Energy Efficiency Management
 
