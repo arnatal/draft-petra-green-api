@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 31 January 2027                                      Telefonica
+Expires: 2 April 2027                                         Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                            30 July 2026
+                                                       29 September 2026
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 January 2027.
+   This Internet-Draft will expire on 2 April 2027.
 
 Copyright Notice
 
