@@ -632,7 +632,7 @@ module ietf-petra {
       <t>Implementations and deployments SHOULD consider at least the following:</t>
 
       <ul>
-        <li>Secure transport: confidentiality and integrity protection for PETRA exchanges MUST be
+        <li>Secure transport: mutual authentication, confidentiality, and integrity protection for PETRA exchanges MUST be
           provided by the underlying management protocol and transport.</li>
         <li>Authentication and authorization: servers MUST authenticate clients and MUST enforce
           authorization before processing requests. In particular, invocation of the
