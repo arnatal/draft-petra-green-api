@@ -663,36 +663,19 @@ module ietf-petra {
 
     <section anchor="IANA" title="IANA Considerations">
 
-      <t>The IANA is requested to as assign a new namespace URI from the IETF XML registry.</t>
-
-      <t>This document registers the following namesace URIs in the IETF XML registry <xref
-          target="RFC3688" />:</t>
-
-      <t />
-
-      <t>--------------------------------------------------------------------</t>
+      <t>IANA is requested to register the following URI in the "ns" registry within the "IETF XML Registry" group <xref target="RFC3688" />:</t>
 
       <t>URI: urn:ietf:params:xml:ns:yang:ietf-petra</t>
+      <t>Registrant Contact: The IESG</t>
+      <t>XML: N/A; the requested URI is an XML namespace.</t>
 
-      <t>Registrant Contact: The IESG.</t>
+      <t>IANA is requested to register the following YANG module in the "YANG Module Names" registry <xref target="RFC7950" /> within the "YANG Parameters" registry group:</t>
 
-      <t>XML: N/A, the requested URI is an XML namespace.</t>
-
-      <t>--------------------------------------------------------------------</t>
-
-      <t>This document registers the following YANG modules in the "YANG Module Names" registry <xref
-          target="RFC7950" />:</t>
-
-      <t>--------------------------------------------------------------------</t>
       <t>Name: ietf-petra</t>
+      <t>Maintained by IANA? N</t>
       <t>Namespace: urn:ietf:params:xml:ns:yang:ietf-petra</t>
       <t>Prefix: petra</t>
-      <t>Reference: RFC XXX</t>
-      <t>Maintained by IANA? N</t>
-      <t>--------------------------------------------------------------------</t>
-
-
-      <t />
+      <t>Reference: RFC XXXX</t>
 
     </section>
 
