@@ -5,14 +5,14 @@
 GREEN                                                 A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Informational                           L. M. Contreras
-Expires: 2 April 2027                                         Telefonica
+Expires: 4 May 2027                                           Telefonica
                                                               M. Palmero
                                                   Independent Consultant
                                                              J. Lindblad
                                                              All For Eco
                                                       A. Gallego Sanchez
                                                                T-SYSTEMS
-                                                       29 September 2026
+                                                         31 October 2026
 
 
                  Path Energy Traffic Ratio API (PETRA)
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 April 2027.
+   This Internet-Draft will expire on 4 May 2027.
 
 Copyright Notice
 
@@ -714,9 +714,9 @@ module: ietf-petra
               Claise, B., Clarke, J., Farrel, A., Barguil, S.,
               Pignataro, C., and R. Chen, "Guidelines for Considering
               Operations and Management in IETF Specifications", Work in
-              Progress, Internet-Draft, draft-ietf-opsawg-rfc5706bis-08,
-              24 September 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-opsawg-rfc5706bis-08>.
+              Progress, Internet-Draft, draft-ietf-opsawg-rfc5706bis-09,
+              6 October 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-opsawg-rfc5706bis-09>.
 
    [I-D.madpr-green-provenance]
               Palmero, M. P., Lopez, D., Pérez, A. M., Andersson, P.,
